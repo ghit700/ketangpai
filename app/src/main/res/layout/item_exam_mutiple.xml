@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    app:cardCornerRadius="5dp"
+
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="10dp"
+        >
+
+
+        <TextView
+            android:id="@+id/tv_exam_mutiple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1:多选题"
+            android:textSize="14sp"/>
+
+
+        <TextView
+            android:id="@+id/tvfenzhi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="4dp"
+            android:layout_toRightOf="@id/tv_exam_mutiple"
+            android:text="分值"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_exam_grade"
+            android:layout_width="28dp"
+            android:layout_height="18dp"
+            android:layout_toRightOf="@id/tvfenzhi"
+            android:gravity="center"
+            android:maxLength="2"
+            android:text="11"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_exam_value"
+            android:layout_width="28dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:maxLength="2"
+            android:text="11"
+            android:textColor="#ff0000"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/tv_exam_value"
+            android:text="得分:"/>
+
+        <TextView
+            android:id="@+id/tv_exam_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_exam_mutiple"
+            android:layout_marginTop="8dp"
+            android:gravity="top"
+            android:hint="题目"
+            android:padding="5dp"
+            android:paddingLeft="5dp"
+            android:textSize="14sp"/>
+
+
+        <CheckBox
+            android:id="@+id/cb_exam_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_exam_title"
+            android:text="对"
+            />
+
+        <CheckBox
+            android:id="@+id/cb_exam_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cb_exam_a"
+            android:text="错"/>
+
+        <CheckBox
+            android:id="@+id/cb_exam_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cb_exam_b"
+            android:text="错"/>
+
+        <CheckBox
+            android:id="@+id/cb_exam_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cb_exam_c"
+            android:text="错"/>
+
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/backgroud_accout_item"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
+
+    <ImageView
+        android:id="@+id/img_share_picImg"
+        android:layout_width="45dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="45dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/tv_share_fileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@id/img_share_picImg"
+        android:text="幸福总结"
+        android:textColor="@color/black"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tv_share_fileSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_share_fileName"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+
+        android:layout_toRightOf="@+id/img_share_picImg"
+        android:text="111MB"
+        android:textSize="10sp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/tv_share_fileSize"
+        android:background="@color/black_e"/>
+
+</RelativeLayout>

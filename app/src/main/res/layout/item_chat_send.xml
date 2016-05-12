@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/img_chat_acceptor_userIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/da8e974dc_r"/>
+
+    <TextView
+        android:id="@+id/tv_chat_acceptor_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/backgroud_tv_chat_acceptor"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:paddingRight="10dp"
+        android:text="13214dfs4fsdfsdfsdfsdfsdfsdfsdfsdfsdfs56fffsd;fjs"
+        android:textSize="14sp"/>
+
+</LinearLayout>

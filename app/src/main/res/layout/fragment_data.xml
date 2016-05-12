@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/img_data_fileImg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/tv_data_name"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="一分一秒"
+        android:textColor="#000000"
+        android:textSize="18sp"/>
+
+
+    <Button
+        android:id="@+id/btn_data_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorPrimary"
+        android:text="下载"
+        android:textColor="#ffffff"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/btn_data_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/backgroud_accout_item"
+        android:text="删除"
+        android:textColor="#ff0000"
+        android:textSize="20sp"/>
+
+</LinearLayout>
