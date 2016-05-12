@@ -63,7 +63,6 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
 
     @Override
     protected void bindData(ViewHolder holder, int position, Subject item) {
-        super.bindData(holder, position, item);
         switch (item.getType()) {
             case 1:
                 bindJudgeData(holder, position, item);
@@ -103,6 +102,11 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
             item.setSubmit(false);
             etAddExamGrade.setText(String.valueOf(item.getScore()));
             etAddExamTitle.setText(item.getTitle());
+        } else {
+            etAddExamGrade.setEnabled(true);
+            etAddExamTitle.setEnabled(true);
+            etAddExamGrade.setText("");
+            etAddExamTitle.setText("");
         }
         btnAddExamSumit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,6 +208,23 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
             etAddExamD.setText(item.getContent().get(3));
 
 
+        } else {
+            etAddExamGrade.setEnabled(true);
+            etAddExamTitle.setEnabled(true);
+            cbAddExamA.setEnabled(true);
+            cbAddExamB.setEnabled(true);
+            cbAddExamC.setEnabled(true);
+            cbAddExamD.setEnabled(true);
+            etAddExamA.setEnabled(true);
+            etAddExamB.setEnabled(true);
+            etAddExamC.setEnabled(true);
+            etAddExamD.setEnabled(true);
+            etAddExamTitle.setText("");
+            etAddExamA.setText("");
+            etAddExamB.setText("");
+            etAddExamC.setText("");
+            etAddExamD.setText("");
+            etAddExamGrade.setText("");
         }
         btnAddExamSumit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -353,6 +374,23 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
             etAddExamB.setText(item.getContent().get(1));
             etAddExamC.setText(item.getContent().get(2));
             etAddExamD.setText(item.getContent().get(3));
+        } else {
+            etAddExamGrade.setEnabled(true);
+            etAddExamTitle.setEnabled(true);
+            rbAddExamA.setEnabled(true);
+            rbAddExamB.setEnabled(true);
+            rbAddExamC.setEnabled(true);
+            rbAddExamD.setEnabled(true);
+            etAddExamA.setEnabled(true);
+            etAddExamB.setEnabled(true);
+            etAddExamC.setEnabled(true);
+            etAddExamD.setEnabled(true);
+            etAddExamGrade.setText("");
+            etAddExamTitle.setText("");
+            etAddExamA.setText("");
+            etAddExamB.setText("");
+            etAddExamC.setText("");
+            etAddExamD.setText("");
         }
         rgAddExam.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -447,6 +485,15 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
             } else {
                 rbAddExamFalse.setChecked(true);
             }
+        }else{
+            etAddExamGrade.setEnabled(true);
+            etAddExamTitle.setEnabled(true);
+            rbAddExamFalse.setEnabled(true);
+            rbAddExamTrue.setEnabled(true);
+            etAddExamGrade.setText("");
+            etAddExamTitle.setText("");
+            rbAddExamTrue.setChecked(false);
+            rbAddExamFalse.setChecked(false);
         }
 
         rgAddExam.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
