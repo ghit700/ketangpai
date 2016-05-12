@@ -54,8 +54,7 @@ public class CourseExamAdapter extends BaseAdapter<Test> {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.t_exam_edit_menu:
-                        break;
+
                     case R.id.t_exam_delete_menu:
                         ExamModel examModel = new ExamModelImpl();
                         examModel.deleteExam(mContext, s.getT_id());

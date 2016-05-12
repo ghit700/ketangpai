@@ -1,6 +1,7 @@
 package com.ketangpai.modelImpl;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 import com.ketangpai.bean.MessageInfo;
@@ -14,6 +15,7 @@ import com.ketangpai.constant.Constant;
 import com.ketangpai.fragment.AccountFragment;
 import com.ketangpai.fragment.AccountUpdateFragment;
 import com.ketangpai.model.UserModel;
+import com.ketangpai.utils.DbUtils;
 import com.ketangpai.utils.FileUtils;
 
 import org.w3c.dom.ls.LSException;
@@ -39,6 +41,11 @@ import cn.bmob.v3.listener.UploadFileListener;
  */
 public class UserModelImpl implements UserModel {
 
+    DbUtils mDbUtils;
+
+    public UserModelImpl() {
+        mDbUtils = new DbUtils();
+    }
 
     @Override
     public void login(final Context context, String account, String password, final ResultCallback resultCallback) {
@@ -58,11 +65,11 @@ public class UserModelImpl implements UserModel {
                         if (!"".equals(user.getPath())) {
                             FileUtils.createNewFile(Constant.PHOTO_FOLDER);
                             final BmobFile bmobFile = new BmobFile("logo.jpg", "", user.getPath());
-                            bmobFile.download(context, new File(Constant.LOGO_FOLDER), new DownloadFileListener() {
+                            bmobFile.download(context, new File(Constant.PHOTO_FOLDER
+                                    + user.getAccount() + "logo.jpg"), new DownloadFileListener() {
                                 @Override
                                 public void onSuccess(String s) {
                                     Log.i("=====", "filename=" + bmobFile.getFilename());
-
                                     resultCallback.onSuccess(user);
                                 }
 
@@ -203,6 +210,7 @@ public class UserModelImpl implements UserModel {
                             m.update(context, new UpdateListener() {
                                 @Override
                                 public void onSuccess() {
+
                                     Log.i("receive_account=====upload", "success");
 
                                 }
@@ -266,6 +274,29 @@ public class UserModelImpl implements UserModel {
         });
 
 
+    }
+
+    @Override
+    public void saveUser(User user) {
+        String sql = "insert into user (account,password,name,path) values (?,?,?,?)";
+        Object[] bindArgs = new Object[]{user.getAccount(), user.getPassword(), user.getName(),
+                user.getPath()};
+        mDbUtils.insert(sql, bindArgs);
+    }
+
+    @Override
+    public void searchUser(String account, ResultCallback resultCallback) {
+        String sql = "select path,account from user where account=?";
+        String[] selectArgs = new String[]{account};
+        Cursor cursor = mDbUtils.select(sql, selectArgs);
+        while (cursor.moveToNext()) {
+            User user = new User();
+            user.setPath(cursor.getString(0));
+            user.setAccount(cursor.getString(1));
+            resultCallback.onSuccess(user);
+            return;
+        }
+        resultCallback.onSuccess(null);
     }
 
 

@@ -1,6 +1,7 @@
 package com.ketangpai.fragment;
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -22,10 +23,11 @@ import java.util.List;
 /**
  * Created by nan on 2016/4/17.
  */
-public class MessageFragment extends BasePresenterFragment<MessageViewInterface, MessagePresenter> implements MessageViewInterface, OnItemClickListener {
+public class MessageFragment extends BasePresenterFragment<MessageViewInterface, MessagePresenter> implements MessageViewInterface, OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     //view
     RecyclerView list_messages;
+    SwipeRefreshLayout refeshMessage;
 
     //adater
     MessageAdapter mMessageAdapter;
@@ -59,24 +61,31 @@ public class MessageFragment extends BasePresenterFragment<MessageViewInterface,
         mMessages = new ArrayList();
         mMessageAdapter = new MessageAdapter(mContext, mMessages, account);
         list_messages.setAdapter(mMessageAdapter);
+        refeshMessage = (SwipeRefreshLayout) view.findViewById(R.id.refesh_message);
     }
 
     @Override
     protected void initData() {
-
+        refeshMessage.setColorSchemeResources(R.color.colorPrimary);
     }
 
 
     @Override
     protected void initListener() {
         mMessageAdapter.setOnItemClickListener(this);
+        refeshMessage.setOnRefreshListener(this);
     }
 
     @Override
     protected void loadData() {
-        mPresenter.getNewestMessageLis(mContext, account);
+        refeshMessage.post(new Runnable() {
+            @Override
+            public void run() {
+                refeshMessage.setRefreshing(true);
+            }
+        });
+        onRefresh();
     }
-
 
 
     @Override
@@ -93,11 +102,17 @@ public class MessageFragment extends BasePresenterFragment<MessageViewInterface,
     }
 
 
-
     @Override
     public void getNewestMessageListOnComplete(List<NewestMessage> newestMessages) {
+        refeshMessage.setRefreshing(false);
+        mMessages.clear();
         mMessages.addAll(newestMessages);
         Collections.reverse(mMessages);
         mMessageAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.getNewestMessageLis(mContext, account);
     }
 }

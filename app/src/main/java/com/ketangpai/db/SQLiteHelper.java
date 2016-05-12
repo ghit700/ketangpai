@@ -19,15 +19,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create table if not exists  user (" +
+        String sql = "create table user (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "account text," +
                 "password text," +
-                "type INTEGER," +
                 "name text," +
                 "path text)";
         db.execSQL(sql);
-        sql = "create table if not exists contacts(" +
+        sql = "create table  contacts(" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "c_id integer," +
                 "c_name text," +
@@ -36,7 +35,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 "path text)";
         db.execSQL(sql);
 
-        sql = "create table if not exists messageinfo(" +
+        sql = "create table  messageinfo(" +
                 "m_id integer," +
                 "time integer," +
                 "content text," +
@@ -47,7 +46,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 "receive_account text)";
         db.execSQL(sql);
 
-        sql = "create table if not exists newestmessage(" +
+        sql = "create table  newestmessage(" +
                 "m_id integer," +
                 "time integer," +
                 "content text," +

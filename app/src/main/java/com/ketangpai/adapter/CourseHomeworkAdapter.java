@@ -57,8 +57,7 @@ public class CourseHomeworkAdapter extends BaseAdapter<Teacher_Homework> {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.t_homework_edit_menu:
-                        break;
+
                     case R.id.t_homework_delete_menu:
                         HomeworkModel homeworkModel = new HomeworkModelImpl();
                         homeworkModel.deleteHomework(mContext, s.getH_id());

@@ -49,8 +49,7 @@ public class CourseNoticeAdapter extends BaseAdapter<Notice> {
                         s.delete(mContext);
                         deleteItem(position);
                         break;
-                    case R.id.notice_edit_menu:
-                        break;
+
 
                     default:
                         break;

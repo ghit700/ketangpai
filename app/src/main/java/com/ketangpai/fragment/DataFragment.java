@@ -1,6 +1,7 @@
 package com.ketangpai.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,6 @@ public class DataFragment extends BasePresenterFragment<DataViewInterface, DataP
     //view
     private ImageView img_data_fileImg;
     private TextView tv_data_name;
-    private Button btn_data_delete;
     private Button btn_data_preview;
 
     //变量
@@ -51,7 +51,6 @@ public class DataFragment extends BasePresenterFragment<DataViewInterface, DataP
     protected void initView() {
         img_data_fileImg = (ImageView) view.findViewById(R.id.img_data_fileImg);
         tv_data_name = (TextView) view.findViewById(R.id.tv_data_name);
-        btn_data_delete = (Button) view.findViewById(R.id.btn_data_delete);
         btn_data_preview = (Button) view.findViewById(R.id.btn_data_download);
 
 
@@ -70,7 +69,6 @@ public class DataFragment extends BasePresenterFragment<DataViewInterface, DataP
     @Override
     protected void initListener() {
         btn_data_preview.setOnClickListener(this);
-        btn_data_delete.setOnClickListener(this);
 
     }
 
@@ -82,8 +80,7 @@ public class DataFragment extends BasePresenterFragment<DataViewInterface, DataP
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_data_delete:
-                break;
+
             case R.id.btn_data_download:
                 showDownloadProgress();
                 break;

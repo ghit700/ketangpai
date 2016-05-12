@@ -74,9 +74,7 @@ public class CourseMainCourseAdapter extends BaseAdapter<Course> {
                         mDataList.remove(position);
                         notifyDataSetChanged();
                         break;
-                    case R.id.item_menu_edit:
 
-                        break;
                     default:
                         break;
                 }

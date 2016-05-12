@@ -23,5 +23,9 @@ public interface UserModel {
 
     public void uploadUserLogo(Context context, File file, User user, UpdateListener resultCallback);
 
-    public void getUserGroup(Context context,  String account, ResultsCallback resultsCallback);
+    public void getUserGroup(Context context, String account, ResultsCallback resultsCallback);
+
+    void saveUser(User user);
+
+    void searchUser(String account, ResultCallback resultCallback);
 }

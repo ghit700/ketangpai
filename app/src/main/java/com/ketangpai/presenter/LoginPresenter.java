@@ -32,7 +32,9 @@ public class LoginPresenter extends BasePresenter<LoginViewInterface> {
             userModel.login(context, account, password, new ResultCallback() {
                 @Override
                 public void onSuccess(Object object) {
-
+                    if (null!=object){
+                        userModel.saveUser((User) object);
+                    }
                     loginViewInterface.login((User) object);
                 }
 
@@ -51,7 +53,7 @@ public class LoginPresenter extends BasePresenter<LoginViewInterface> {
 
     }
 
-    public void register(Context context, User user) {
+    public void register(Context context, final User user) {
         if (isViewAttached()) {
             loginViewInterface = getView();
 
@@ -60,6 +62,7 @@ public class LoginPresenter extends BasePresenter<LoginViewInterface> {
             userModel.register(context, user, new SaveListener() {
                 @Override
                 public void onSuccess() {
+                    userModel.saveUser( user);
                     loginViewInterface.register(1);
                     loginViewInterface.hideRegisterLoading();
                 }
@@ -77,7 +80,23 @@ public class LoginPresenter extends BasePresenter<LoginViewInterface> {
             Log.i(LoginActivity.TAG, "没有连接view");
             return;
         }
+    }
 
 
+    public void searchUserForLogo(String account){
+        if (isViewAttached()){
+            loginViewInterface=getView();
+            userModel.searchUser(account, new ResultCallback() {
+                @Override
+                public void onSuccess(Object object) {
+                    loginViewInterface.searchUserOnComplete((User)object);
+                }
+
+                @Override
+                public void onFailure(String e) {
+
+                }
+            });
+        }
     }
 }

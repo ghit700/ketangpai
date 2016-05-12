@@ -98,13 +98,16 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
             }
         });
 
+        etAddExamGrade.setEnabled(true);
+        etAddExamTitle.setEnabled(true);
+        btnAddExamSumit.setVisibility(View.VISIBLE);
+
         if (null != item.getTitle()) {
             item.setSubmit(false);
             etAddExamGrade.setText(String.valueOf(item.getScore()));
             etAddExamTitle.setText(item.getTitle());
         } else {
-            etAddExamGrade.setEnabled(true);
-            etAddExamTitle.setEnabled(true);
+
             etAddExamGrade.setText("");
             etAddExamTitle.setText("");
         }
@@ -158,6 +161,18 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
             }
         });
 
+        btnAddExamSumit.setVisibility(View.VISIBLE);
+        etAddExamGrade.setEnabled(true);
+        etAddExamTitle.setEnabled(true);
+        cbAddExamA.setEnabled(true);
+        cbAddExamB.setEnabled(true);
+        cbAddExamC.setEnabled(true);
+        cbAddExamD.setEnabled(true);
+        etAddExamA.setEnabled(true);
+        etAddExamB.setEnabled(true);
+        etAddExamC.setEnabled(true);
+        etAddExamD.setEnabled(true);
+
         if (null != item.getTitle()) {
             item.setSubmit(false);
             etAddExamGrade.setText(String.valueOf(item.getScore()));
@@ -209,16 +224,7 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
 
 
         } else {
-            etAddExamGrade.setEnabled(true);
-            etAddExamTitle.setEnabled(true);
-            cbAddExamA.setEnabled(true);
-            cbAddExamB.setEnabled(true);
-            cbAddExamC.setEnabled(true);
-            cbAddExamD.setEnabled(true);
-            etAddExamA.setEnabled(true);
-            etAddExamB.setEnabled(true);
-            etAddExamC.setEnabled(true);
-            etAddExamD.setEnabled(true);
+
             etAddExamTitle.setText("");
             etAddExamA.setText("");
             etAddExamB.setText("");
@@ -343,12 +349,19 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
         int i = position;
         i++;
         tvAddExamSingle.setText(i + ": " + "单选题");
-        btnAddExamCancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteItem(position);
-            }
-        });
+
+
+        btnAddExamSumit.setVisibility(View.VISIBLE);
+        etAddExamGrade.setEnabled(true);
+        etAddExamTitle.setEnabled(true);
+        rbAddExamA.setEnabled(true);
+        rbAddExamB.setEnabled(true);
+        rbAddExamC.setEnabled(true);
+        rbAddExamD.setEnabled(true);
+        etAddExamA.setEnabled(true);
+        etAddExamB.setEnabled(true);
+        etAddExamC.setEnabled(true);
+        etAddExamD.setEnabled(true);
 
         if (null != item.getTitle()) {
             item.setSubmit(false);
@@ -375,16 +388,7 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
             etAddExamC.setText(item.getContent().get(2));
             etAddExamD.setText(item.getContent().get(3));
         } else {
-            etAddExamGrade.setEnabled(true);
-            etAddExamTitle.setEnabled(true);
-            rbAddExamA.setEnabled(true);
-            rbAddExamB.setEnabled(true);
-            rbAddExamC.setEnabled(true);
-            rbAddExamD.setEnabled(true);
-            etAddExamA.setEnabled(true);
-            etAddExamB.setEnabled(true);
-            etAddExamC.setEnabled(true);
-            etAddExamD.setEnabled(true);
+
             etAddExamGrade.setText("");
             etAddExamTitle.setText("");
             etAddExamA.setText("");
@@ -458,7 +462,12 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
 
             }
         });
-
+        btnAddExamCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteItem(position);
+            }
+        });
 
     }
 
@@ -475,6 +484,11 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
         int i = position;
         i++;
         tvAddExamJudge.setText(i + ": " + "判断题");
+        btnAddExamSumit.setVisibility(View.VISIBLE);
+        etAddExamGrade.setEnabled(true);
+        etAddExamTitle.setEnabled(true);
+        rbAddExamFalse.setEnabled(true);
+        rbAddExamTrue.setEnabled(true);
 
         if (null != item.getTitle()) {
             item.setSubmit(false);
@@ -485,11 +499,7 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
             } else {
                 rbAddExamFalse.setChecked(true);
             }
-        }else{
-            etAddExamGrade.setEnabled(true);
-            etAddExamTitle.setEnabled(true);
-            rbAddExamFalse.setEnabled(true);
-            rbAddExamTrue.setEnabled(true);
+        } else {
             etAddExamGrade.setText("");
             etAddExamTitle.setText("");
             rbAddExamTrue.setChecked(false);

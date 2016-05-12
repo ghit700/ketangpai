@@ -145,9 +145,10 @@ public class LoginActivity extends BasePresenterActivity<LoginViewInterface, Log
 
             @Override
             public void afterTextChanged(Editable s) {
-                if ( account.equals(mName.getText().toString()) && !path.equals("")) {
-                    ImageLoaderUtils.displayNoDisk(mContext, mUserIconImg, Constant.LOGO_FOLDER);
-                }
+//                if (account.equals(mName.getText().toString()) && !path.equals("")) {
+//                    ImageLoaderUtils.displayNoDisk(mContext, mUserIconImg, Constant.LOGO_FOLDER);
+//                }
+                mPresenter.searchUserForLogo(mName.getText().toString());
             }
         });
 
@@ -257,7 +258,6 @@ public class LoginActivity extends BasePresenterActivity<LoginViewInterface, Log
 
     @Override
     public void hideLoginLoading() {
-
         dismissLoadingDialog();
     }
 
@@ -294,6 +294,16 @@ public class LoginActivity extends BasePresenterActivity<LoginViewInterface, Log
                         }
                     }).show();
 
+        }
+    }
+
+    @Override
+    public void searchUserOnComplete(User user) {
+        if (null != user && !user.getPath().equals("")) {
+            ImageLoaderUtils.display(mContext, mUserIconImg, Constant.PHOTO_FOLDER
+                    + user.getAccount() + "logo.jpg");
+        } else {
+            ImageLoaderUtils.display(mContext, mUserIconImg, "");
         }
     }
 

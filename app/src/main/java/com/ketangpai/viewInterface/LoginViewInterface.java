@@ -25,4 +25,6 @@ public interface LoginViewInterface {
      * @param
      */
     public void register(int ret);
+
+    void searchUserOnComplete(User user);
 }
