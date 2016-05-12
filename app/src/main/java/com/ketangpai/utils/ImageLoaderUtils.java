@@ -7,6 +7,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ketangpai.nan.ketangpai.R;
 
+import java.io.File;
+
 
 /**
  * Created by nan on 2016/4/16.
@@ -29,6 +31,13 @@ public class ImageLoaderUtils {
                 .error(R.drawable.da8e974dc_r).crossFade().into(imageView);
     }
 
+    public static void display(Context context, ImageView imageView, File file) {
+        if (imageView == null) {
+            throw new IllegalArgumentException("argument error");
+        }
+        Glide.with(context).load(file).placeholder(R.drawable.da8e974dc_r).centerCrop().diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.da8e974dc_r).crossFade().into(imageView);
+    }
 
 
     public static void displayNoDisk(Context context, ImageView imageView, String url) {
@@ -69,7 +78,7 @@ public class ImageLoaderUtils {
         } else if (end.equals("xls")) {
             imageView.setImageResource(R.drawable.documents_icon_xls);
 
-        } else if (end.equals("doc")||end.equals("docx")) {
+        } else if (end.equals("doc") || end.equals("docx")) {
             imageView.setImageResource(R.drawable.documents_icon_doc);
         } else if (end.equals("pdf")) {
             imageView.setImageResource(R.drawable.documents_icon_pdf);

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.ketangpai.nan.ketangpai.R;
 
 import com.ketangpai.activity.AccountActivity;
@@ -22,6 +23,7 @@ import com.ketangpai.activity.LoginActivity;
 import com.ketangpai.activity.MainActivity;
 import com.ketangpai.constant.Constant;
 import com.ketangpai.fragment.AccountFragment;
+import com.ketangpai.utils.ActivityCollector;
 import com.ketangpai.utils.ImageLoaderUtils;
 
 import java.io.File;
@@ -87,12 +89,12 @@ public abstract class DrawerBaseActivity extends BaseActivity implements View.On
 
     @Override
     protected void initData() {
-        File file = new File(Constant.LOGO_FOLDER);
+        File file = new File(Constant.PHOTO_FOLDER+account+"logo.jpg");
         if (!file.exists() || path.equals("")) {
             ImageLoaderUtils.display(mContext, mUserIconImg, path);
         } else {
-
-            ImageLoaderUtils.displayNoDisk(mContext, mUserIconImg, Constant.LOGO_FOLDER);
+            Log.i("=======", "1111" + file.getPath());
+            ImageLoaderUtils.display(mContext, mUserIconImg, file);
         }
 
     }
@@ -204,6 +206,7 @@ public abstract class DrawerBaseActivity extends BaseActivity implements View.On
                 getSharedPreferences("user", 0).edit().putString("account", account).commit();
                 getSharedPreferences("user", 0).edit().putString("path", path).commit();
                 startActivity(new Intent(mContext, LoginActivity.class));
+                ActivityCollector.finishAllActivity();
                 finish();
             }
         }).create().show();
@@ -221,7 +224,7 @@ public abstract class DrawerBaseActivity extends BaseActivity implements View.On
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ACCOUNT_REQUEST && resultCode == AccountFragment.ACCOUNT_RESULT) {
             Log.i("====", "111");
-            ImageLoaderUtils.displayNoDisk(mContext, mUserIconImg, Constant.LOGO_FOLDER);
+            ImageLoaderUtils.displayNoDisk(mContext, mUserIconImg, Constant.PHOTO_FOLDER+account+"logo.jpg");
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
