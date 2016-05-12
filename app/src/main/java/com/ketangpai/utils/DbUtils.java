@@ -2,6 +2,7 @@ package com.ketangpai.utils;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.ketangpai.db.SQLiteHelper;
 
@@ -23,7 +24,11 @@ public class DbUtils {
     }
 
     public void insert(String sql, Object[] bindArgs) {
-        mWritableDatabase.execSQL(sql, bindArgs);
+        try {
+            mWritableDatabase.execSQL(sql, bindArgs);
+        } catch (Exception e) {
+            Log.i("===update", e.getMessage());
+        }
     }
 
     public void delete(String sql, Object[] bindArgs) {

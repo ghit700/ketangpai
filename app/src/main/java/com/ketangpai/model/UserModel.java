@@ -2,11 +2,13 @@ package com.ketangpai.model;
 
 import android.content.Context;
 
+import com.ketangpai.bean.User_Group;
 import com.ketangpai.callback.ResultCallback;
 import com.ketangpai.bean.User;
 import com.ketangpai.callback.ResultsCallback;
 
 import java.io.File;
+import java.util.List;
 
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -28,4 +30,8 @@ public interface UserModel {
     void saveUser(User user);
 
     void searchUser(String account, ResultCallback resultCallback);
+
+    void saveUserGroup(List<User_Group> user_groups);
+
+    List<User_Group> loadUserGroupFromDB();
 }

@@ -28,17 +28,15 @@ public class AccountPresenter extends BasePresenter<AccountViewInterface> {
     public void uploadUserLogo(Context context, File file, User user) {
         if (isViewAttached()) {
             accountViewInterface = getView();
-            accountViewInterface.showUploadLogoDialong();
             userModel.uploadUserLogo(context, file, user, new UpdateListener() {
                 @Override
                 public void onSuccess() {
                     accountViewInterface.uploadLogoOnComplete(1);
-                    accountViewInterface.hideUploadLogoDialong();
                 }
 
                 @Override
                 public void onFailure(int i, String s) {
-                    Log.i(AccountFragment.TAG,s);
+                    Log.i(AccountFragment.TAG, s);
                     accountViewInterface.uploadLogoOnComplete(-1);
 
                 }

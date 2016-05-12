@@ -20,7 +20,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "create table user (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "_id INTEGER  AUTOINCREMENT," +
                 "account text," +
                 "password text," +
                 "name text," +

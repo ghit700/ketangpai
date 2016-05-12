@@ -89,13 +89,13 @@ public abstract class DrawerBaseActivity extends BaseActivity implements View.On
 
     @Override
     protected void initData() {
-        File file = new File(Constant.PHOTO_FOLDER+account+"logo.jpg");
+        File file = new File(Constant.PHOTO_FOLDER + account + "logo.jpg");
         if (!file.exists() || path.equals("")) {
             ImageLoaderUtils.display(mContext, mUserIconImg, path);
         } else {
-            Log.i("=======", "1111" + file.getPath());
-            ImageLoaderUtils.display(mContext, mUserIconImg, file);
+            ImageLoaderUtils.displayNoDisk(mContext, mUserIconImg, Constant.PHOTO_FOLDER + account + "logo.jpg");
         }
+
 
     }
 

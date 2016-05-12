@@ -14,6 +14,7 @@ import com.ketangpai.bean.User;
 import com.ketangpai.listener.OnItemClickListener;
 import com.ketangpai.nan.ketangpai.R;
 import com.ketangpai.presenter.MessagePresenter;
+import com.ketangpai.utils.NetUtils;
 import com.ketangpai.viewInterface.MessageViewInterface;
 
 import java.util.ArrayList;
@@ -78,13 +79,17 @@ public class MessageFragment extends BasePresenterFragment<MessageViewInterface,
 
     @Override
     protected void loadData() {
-        refeshMessage.post(new Runnable() {
-            @Override
-            public void run() {
-                refeshMessage.setRefreshing(true);
-            }
-        });
-        onRefresh();
+        if (NetUtils.hasNetworkConnection()) {
+            refeshMessage.post(new Runnable() {
+                @Override
+                public void run() {
+                    refeshMessage.setRefreshing(true);
+                }
+            });
+            onRefresh();
+        } else {
+            sendToast("没有网络连接");
+        }
     }
 
 

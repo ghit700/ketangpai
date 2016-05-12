@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface ContactsViewInterface {
     void getContactListOnComplete(List<User_Group> user_groups);
+
+    void loadContactFromDB(List<User_Group> user_groups);
 }

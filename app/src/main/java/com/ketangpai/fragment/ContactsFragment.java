@@ -29,7 +29,6 @@ public class ContactsFragment extends BasePresenterFragment<ContactsViewInterfac
     ContactsExAdapter mContactsExAdapter;
 
     //变量
-    List<User_Group> mConstacts;
     ArrayList<String> mGroupUsers;
     ArrayList<ArrayList<User>> mGroupItemUsers;
     private String account;
@@ -75,10 +74,9 @@ public class ContactsFragment extends BasePresenterFragment<ContactsViewInterfac
 
     @Override
     protected void loadData() {
+        mPresenter.loadConstactListFromDB();
         if (NetUtils.hasNetworkConnection()) {
             mPresenter.getConstactList(mContext, account);
-        } else {
-            sendToast("没有网络连接");
         }
     }
 
@@ -101,9 +99,23 @@ public class ContactsFragment extends BasePresenterFragment<ContactsViewInterfac
 
     @Override
     public void getContactListOnComplete(List<User_Group> user_groups) {
-        mConstacts = user_groups;
-        getUsersGroupByCourse(mConstacts);
-        mContactsExAdapter.notifyDataSetChanged();
+        if (null != user_groups) {
+
+            mGroupUsers.clear();
+            mGroupItemUsers.clear();
+            getUsersGroupByCourse(user_groups);
+            mContactsExAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void loadContactFromDB(List<User_Group> user_groups) {
+        if (user_groups.size() > 0) {
+            mGroupUsers.clear();
+            mGroupItemUsers.clear();
+            getUsersGroupByCourse(user_groups);
+            mContactsExAdapter.notifyDataSetChanged();
+        }
     }
 
 

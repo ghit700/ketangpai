@@ -83,11 +83,11 @@ public class AccountFragment extends BasePresenterFragment<AccountViewInterface,
         tv_school.setText(school);
         tv_name.setText(name);
 
-        File file = new File(Constant.PHOTO_FOLDER+account+"logo.jpg");
+        File file = new File(Constant.PHOTO_FOLDER + account + "logo.jpg");
         if (!file.exists() || path.equals("")) {
             ImageLoaderUtils.display(mContext, img_account_user, path);
         } else {
-            ImageLoaderUtils.displayNoDisk(mContext, img_account_user, Constant.PHOTO_FOLDER+account+"logo.jpg");
+            ImageLoaderUtils.displayNoDisk(mContext, img_account_user, Constant.PHOTO_FOLDER + account + "logo.jpg");
         }
 
 
@@ -176,7 +176,7 @@ public class AccountFragment extends BasePresenterFragment<AccountViewInterface,
 
             Bitmap bitmap = null;
             try {
-                FileOutputStream fos = new FileOutputStream(Constant.PHOTO_FOLDER+account+"logo.jpg", false);
+                FileOutputStream fos = new FileOutputStream(Constant.PHOTO_FOLDER + account + "logo.jpg", false);
                 InputStream is = mContext.getContentResolver().openInputStream(uri);
                 bitmap = BitmapFactory.decodeStream(is);
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
@@ -184,11 +184,11 @@ public class AccountFragment extends BasePresenterFragment<AccountViewInterface,
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            ImageLoaderUtils.display(mContext, img_account_user, Constant.PHOTO_FOLDER+account+"logo.jpg");
+            ImageLoaderUtils.displayNoDisk(mContext, img_account_user, Constant.PHOTO_FOLDER + account + "logo.jpg");
             User user = new User();
             user.setObjectId(u_id);
             user.setAccount(account);
-            File file = new File(Constant.PHOTO_FOLDER+account+"logo.jpg");
+            File file = new File(Constant.PHOTO_FOLDER + account + "logo.jpg");
             mPresenter.uploadUserLogo(mContext, file, user);
         }
 
@@ -230,16 +230,6 @@ public class AccountFragment extends BasePresenterFragment<AccountViewInterface,
         super.onActivityResult(requsetCode, resultCode, data);
     }
 
-    @Override
-    public void showUploadLogoDialong() {
-        showLoadingDialog();
-        setLoadingText("上传头像中...");
-    }
-
-    @Override
-    public void hideUploadLogoDialong() {
-        dismissLoadingDialog();
-    }
 
     @Override
     public void uploadLogoOnComplete(int ret) {

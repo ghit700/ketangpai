@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.ketangpai.bean.MessageInfo;
 import com.ketangpai.bean.NewestMessage;
-import com.ketangpai.bean.Teacher_Course;
 import com.ketangpai.bean.User_Group;
 import com.ketangpai.callback.ResultCallback;
 import com.ketangpai.bean.User;
@@ -18,9 +17,8 @@ import com.ketangpai.model.UserModel;
 import com.ketangpai.utils.DbUtils;
 import com.ketangpai.utils.FileUtils;
 
-import org.w3c.dom.ls.LSException;
-
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -278,10 +276,16 @@ public class UserModelImpl implements UserModel {
 
     @Override
     public void saveUser(User user) {
-        String sql = "insert into user (account,password,name,path) values (?,?,?,?)";
-        Object[] bindArgs = new Object[]{user.getAccount(), user.getPassword(), user.getName(),
-                user.getPath()};
-        mDbUtils.insert(sql, bindArgs);
+        String sql = "select * from user where account=?";
+        String[] selectArgs = new String[]{user.getAccount()};
+        Cursor cursor = mDbUtils.select(sql, selectArgs);
+        if (!cursor.moveToNext()) {
+            Log.i("=====saveUser", "insert user");
+            sql = "insert into user (account,password,name,path) values (?,?,?,?)";
+            Object[] bindArgs = new Object[]{user.getAccount(), user.getPassword(), user.getName(),
+                    user.getPath()};
+            mDbUtils.insert(sql, bindArgs);
+        }
     }
 
     @Override
@@ -297,6 +301,43 @@ public class UserModelImpl implements UserModel {
             return;
         }
         resultCallback.onSuccess(null);
+    }
+
+    @Override
+    public void saveUserGroup(List<User_Group> user_groups) {
+
+        String sql = "delete from contacts where _id > ?";
+        Object[] bindArgs = new Object[]{0};
+        mDbUtils.delete(sql, bindArgs);
+        sql = "insert into contacts (c_id,c_name,account,name,path) values(?,?,?,?,?)";
+        bindArgs = new Object[5];
+        for (User_Group user : user_groups) {
+            bindArgs[0] = user.getC_id();
+            bindArgs[1] = user.getC_name();
+            bindArgs[2] = user.getAccount();
+            bindArgs[3] = user.getName();
+            bindArgs[4] = user.getPath();
+            mDbUtils.insert(sql, bindArgs);
+        }
+    }
+
+    @Override
+    public List<User_Group> loadUserGroupFromDB() {
+        List<User_Group> user_groups = new ArrayList<>();
+        String sql;
+
+        sql = "select c_id,c_name,account,name,path from contacts";
+        Cursor cursor = mDbUtils.select(sql, null);
+        while (cursor.moveToNext()) {
+            User_Group user_group = new User_Group();
+            user_group.setC_id(cursor.getInt(0));
+            user_group.setC_name(cursor.getString(1));
+            user_group.setAccount(cursor.getString(2));
+            user_group.setName(cursor.getString(3));
+            user_group.setPath(cursor.getString(4));
+            user_groups.add(user_group);
+        }
+        return user_groups;
     }
 
 
