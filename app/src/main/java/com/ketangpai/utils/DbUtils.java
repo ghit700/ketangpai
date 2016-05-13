@@ -9,11 +9,11 @@ import com.ketangpai.db.SQLiteHelper;
 /**
  * Created by nan on 2016/5/12.
  */
-public class DbUtils {
+public class DBUtils {
     private SQLiteDatabase mReadableDatabase;
     private SQLiteDatabase mWritableDatabase;
 
-    public DbUtils() {
+    public DBUtils() {
         SQLiteHelper mSQLiteHelper = new SQLiteHelper(AppContextUtils.getInstance());
         mReadableDatabase = mSQLiteHelper.getReadableDatabase();
         mWritableDatabase = mSQLiteHelper.getWritableDatabase();

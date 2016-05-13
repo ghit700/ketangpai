@@ -14,7 +14,7 @@ import com.ketangpai.constant.Constant;
 import com.ketangpai.fragment.AccountFragment;
 import com.ketangpai.fragment.AccountUpdateFragment;
 import com.ketangpai.model.UserModel;
-import com.ketangpai.utils.DbUtils;
+import com.ketangpai.utils.DBUtils;
 import com.ketangpai.utils.FileUtils;
 
 import java.io.File;
@@ -39,10 +39,10 @@ import cn.bmob.v3.listener.UploadFileListener;
  */
 public class UserModelImpl implements UserModel {
 
-    DbUtils mDbUtils;
+    DBUtils mDBUtils;
 
     public UserModelImpl() {
-        mDbUtils = new DbUtils();
+        mDBUtils = new DBUtils();
     }
 
     @Override
@@ -278,13 +278,13 @@ public class UserModelImpl implements UserModel {
     public void saveUser(User user) {
         String sql = "select * from user where account=?";
         String[] selectArgs = new String[]{user.getAccount()};
-        Cursor cursor = mDbUtils.select(sql, selectArgs);
+        Cursor cursor = mDBUtils.select(sql, selectArgs);
         if (!cursor.moveToNext()) {
             Log.i("=====saveUser", "insert user");
             sql = "insert into user (account,password,name,path) values (?,?,?,?)";
             Object[] bindArgs = new Object[]{user.getAccount(), user.getPassword(), user.getName(),
                     user.getPath()};
-            mDbUtils.insert(sql, bindArgs);
+            mDBUtils.insert(sql, bindArgs);
         }
     }
 
@@ -292,7 +292,7 @@ public class UserModelImpl implements UserModel {
     public void searchUser(String account, ResultCallback resultCallback) {
         String sql = "select path,account from user where account=?";
         String[] selectArgs = new String[]{account};
-        Cursor cursor = mDbUtils.select(sql, selectArgs);
+        Cursor cursor = mDBUtils.select(sql, selectArgs);
         while (cursor.moveToNext()) {
             User user = new User();
             user.setPath(cursor.getString(0));
@@ -308,7 +308,7 @@ public class UserModelImpl implements UserModel {
 
         String sql = "delete from contacts where _id > ?";
         Object[] bindArgs = new Object[]{0};
-        mDbUtils.delete(sql, bindArgs);
+        mDBUtils.delete(sql, bindArgs);
         sql = "insert into contacts (c_id,c_name,account,name,path) values(?,?,?,?,?)";
         bindArgs = new Object[5];
         for (User_Group user : user_groups) {
@@ -317,7 +317,7 @@ public class UserModelImpl implements UserModel {
             bindArgs[2] = user.getAccount();
             bindArgs[3] = user.getName();
             bindArgs[4] = user.getPath();
-            mDbUtils.insert(sql, bindArgs);
+            mDBUtils.insert(sql, bindArgs);
         }
     }
 
@@ -327,8 +327,8 @@ public class UserModelImpl implements UserModel {
         String sql;
 
         sql = "select c_id,c_name,account,name,path from contacts";
-        Cursor cursor = mDbUtils.select(sql, null);
-        while (cursor.moveToNext()) {
+        Cursor cursor = mDBUtils.select(sql, null);
+        if (cursor.moveToNext()) {
             User_Group user_group = new User_Group();
             user_group.setC_id(cursor.getInt(0));
             user_group.setC_name(cursor.getString(1));

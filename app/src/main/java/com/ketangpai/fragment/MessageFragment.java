@@ -79,6 +79,7 @@ public class MessageFragment extends BasePresenterFragment<MessageViewInterface,
 
     @Override
     protected void loadData() {
+        mPresenter.loadNewestMessageListFromDB();
         if (NetUtils.hasNetworkConnection()) {
             refeshMessage.post(new Runnable() {
                 @Override
@@ -117,7 +118,21 @@ public class MessageFragment extends BasePresenterFragment<MessageViewInterface,
     }
 
     @Override
+    public void loadNewestMessageListFromDB(List<NewestMessage> newestMessages) {
+        mMessages.clear();
+        mMessages.addAll(newestMessages);
+        Collections.reverse(mMessages);
+        mMessageAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onRefresh() {
-        mPresenter.getNewestMessageLis(mContext, account);
+        if (NetUtils.hasNetworkConnection()) {
+
+            mPresenter.getNewestMessageLis(mContext, account);
+        } else {
+            sendToast("没有网络连接");
+            refeshMessage.setRefreshing(false);
+        }
     }
 }

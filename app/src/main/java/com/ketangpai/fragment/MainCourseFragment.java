@@ -231,8 +231,13 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
 
     @Override
     public void onRefresh() {
-        mMainCourseAdapter.clearData();
-        mPresenter.getCourseList(mContext, account);
+        if (NetUtils.hasNetworkConnection()) {
+            mMainCourseAdapter.clearData();
+            mPresenter.getCourseList(mContext, account);
+        } else {
+            sendToast("没有网络连接");
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override

@@ -11,5 +11,5 @@ import java.util.List;
 public interface MessageViewInterface {
     void getNewestMessageListOnComplete(List<NewestMessage> newestMessages);
 
-
+    void loadNewestMessageListFromDB(List<NewestMessage> newestMessages);
 }

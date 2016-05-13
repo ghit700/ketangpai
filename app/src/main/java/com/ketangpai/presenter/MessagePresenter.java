@@ -30,6 +30,7 @@ public class MessagePresenter extends BasePresenter<MessageViewInterface> {
                 @Override
                 public void onSuccess(List list) {
                     mMessageViewInterface.getNewestMessageListOnComplete(list);
+                    mMessageModel.saveNewestMessageList(list);
                 }
 
                 @Override
@@ -39,4 +40,12 @@ public class MessagePresenter extends BasePresenter<MessageViewInterface> {
             });
         }
     }
+
+    public void loadNewestMessageListFromDB() {
+        if (isViewAttached()) {
+            mMessageViewInterface = getView();
+            mMessageViewInterface.loadNewestMessageListFromDB(mMessageModel.loadNewestMessageListFromDB());
+        }
+    }
+
 }

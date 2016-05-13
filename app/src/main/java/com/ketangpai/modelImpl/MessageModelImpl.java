@@ -1,21 +1,21 @@
 package com.ketangpai.modelImpl;
 
 import android.content.Context;
+import android.database.Cursor;
 
 import com.ketangpai.bean.MessageInfo;
 import com.ketangpai.bean.NewestMessage;
-import com.ketangpai.bean.PushMessage;
 import com.ketangpai.callback.ResultCallback;
 import com.ketangpai.callback.ResultsCallback;
 import com.ketangpai.model.MessageModel;
+import com.ketangpai.utils.DBUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobQueryResult;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SQLQueryListener;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -23,6 +23,13 @@ import cn.bmob.v3.listener.SaveListener;
  * Created by nan on 2016/5/2.
  */
 public class MessageModelImpl implements MessageModel {
+
+    DBUtils mDBUtils;
+
+    public MessageModelImpl() {
+        mDBUtils = new DBUtils();
+    }
+
     @Override
     public void sendMessage(final Context context, final MessageInfo messageInfo, final String path, final ResultCallback resultCallback) {
         messageInfo.save(context, new SaveListener() {
@@ -91,17 +98,50 @@ public class MessageModelImpl implements MessageModel {
 
             }
         }, account, account);
-//        query.addWhereEqualTo("receive_account", account);
-//        query.findObjects(context, new FindListener<NewestMessage>() {
-//            @Override
-//            public void onSuccess(List<NewestMessage> list) {
-//                resultsCallback.onSuccess(list);
-//            }
-//
-//            @Override
-//            public void onError(int i, String s) {
-//
-//            }
-//        });
+
+    }
+
+    @Override
+    public void saveNewestMessageList(List<NewestMessage> newestMessages) {
+        String sql = "delete from newestmessage where m_id > ?";
+        Object[] bindArgs = new Object[]{0};
+        mDBUtils.delete(sql, bindArgs);
+        sql = "insert into newestmessage (time,content,send_name,send_account" +
+                "send_path,receive_name,receive_account,receive_paths) values(?,?,?,?,?,?,?,?)";
+        bindArgs = new Object[8];
+        for (NewestMessage message : newestMessages) {
+            bindArgs[0] = message.getTime();
+            bindArgs[1] = message.getContent();
+            bindArgs[2] = message.getSend_name();
+            bindArgs[3] = message.getSend_account();
+            bindArgs[4] = message.getSend_path();
+            bindArgs[5] = message.getReceive_name();
+            bindArgs[6] = message.getReceive_account();
+            bindArgs[7] = message.getReceive_path();
+            mDBUtils.insert(sql, bindArgs);
+        }
+    }
+
+    @Override
+    public List<NewestMessage> loadNewestMessageListFromDB() {
+        List<NewestMessage> newestMessages = new ArrayList<>();
+        String sql;
+
+        sql = "select time,content,send_name,send_account " +
+                ",send_path,receive_name,receive_account,receive_paths from newestmessage";
+        Cursor cursor = mDBUtils.select(sql, null);
+        if (cursor.moveToNext()) {
+            NewestMessage message = new NewestMessage();
+            message.setTime(cursor.getLong(0));
+            message.setContent(cursor.getString(1));
+            message.setSend_name(cursor.getString(2));
+            message.setSend_account(cursor.getString(3));
+            message.setSend_path(cursor.getString(4));
+            message.setReceive_name(cursor.getString(5));
+            message.setReceive_account(cursor.getString(6));
+            message.setReceive_path(cursor.getString(7));
+            newestMessages.add(message);
+        }
+        return newestMessages;
     }
 }
