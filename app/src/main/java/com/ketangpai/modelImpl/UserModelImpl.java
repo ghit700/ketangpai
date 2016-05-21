@@ -41,6 +41,7 @@ public class UserModelImpl implements UserModel {
 
     DBUtils mDBUtils;
 
+
     public UserModelImpl() {
         mDBUtils = new DBUtils();
     }
@@ -104,24 +105,7 @@ public class UserModelImpl implements UserModel {
     public void updateUserInfo(Context context, String u_id, String columnName, String columnValue, UpdateListener resultCallback) {
         User user = new User();
         Log.i(AccountUpdateFragment.TAG, "updateUserInfo colunmnName=" + columnName + "  value=" + columnValue);
-        switch (columnName) {
-            case "password":
-                user.setPassword(columnValue);
-                break;
-            case "school":
-                user.setSchool(columnValue);
-                break;
-            case "name":
-                user.setName(columnValue);
-                break;
-            case "number":
-                user.setNumber(Integer.parseInt(columnValue));
-                break;
-
-            default:
-                break;
-        }
-
+        user.setPassword(columnValue);
         user.update(context, u_id, resultCallback);
     }
 
@@ -141,8 +125,10 @@ public class UserModelImpl implements UserModel {
                     @Override
                     public void onSuccess(List<User_Group> list) {
                         if (null != list && list.size() > 0) {
-                            list.get(0).setPath(bmobFile.getFileUrl(context));
-                            list.get(0).update(context);
+                            for (User_Group u:list) {
+                                u.setPath(bmobFile.getFileUrl(context));
+                                u.update(context);
+                            }
                             context.getSharedPreferences("user", 0).edit().putString("path", bmobFile.getFileUrl(context)).commit();
                         }
                     }
@@ -300,6 +286,7 @@ public class UserModelImpl implements UserModel {
             resultCallback.onSuccess(user);
             return;
         }
+        cursor.close();
         resultCallback.onSuccess(null);
     }
 
@@ -328,15 +315,17 @@ public class UserModelImpl implements UserModel {
 
         sql = "select c_id,c_name,account,name,path from contacts";
         Cursor cursor = mDBUtils.select(sql, null);
-        if (cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             User_Group user_group = new User_Group();
             user_group.setC_id(cursor.getInt(0));
             user_group.setC_name(cursor.getString(1));
             user_group.setAccount(cursor.getString(2));
             user_group.setName(cursor.getString(3));
-            user_group.setPath(cursor.getString(4));
+            String[] splitePaths = cursor.getString(4).split("/");
+            user_group.setPath(Constant.ALBUM_PATH + Constant.DATA_FOLDER + splitePaths[splitePaths.length - 1]);
             user_groups.add(user_group);
         }
+        cursor.close();
         return user_groups;
     }
 

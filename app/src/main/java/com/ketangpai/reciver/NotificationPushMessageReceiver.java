@@ -63,6 +63,7 @@ public class NotificationPushMessageReceiver extends BroadcastReceiver {
                     builder.setDefaults(Notification.DEFAULT_LIGHTS);//设置指示灯
                     builder.setDefaults(Notification.DEFAULT_VIBRATE);//设置震动
                     Notification notification = builder.build();
+                    notification.flags|=Notification.FLAG_AUTO_CANCEL;
                     NotificationManager manager =
                             (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     manager.notify(0, notification);

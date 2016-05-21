@@ -26,17 +26,13 @@ public class FileModelImpl implements FileModel {
         bmobFile.upload(context, new UploadFileListener() {
             @Override
             public void onSuccess() {
-
                 resultCallback.onSuccess(bmobFile);
             }
-
-
             @Override
             public void onProgress(Integer value) {
                 super.onProgress(value);
                 resultCallback.onProgress(value);
             }
-
             @Override
             public void onFailure(int i, String s) {
                 resultCallback.onFailure(s);

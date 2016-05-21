@@ -98,16 +98,18 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
             }
         });
 
-        etAddExamGrade.setEnabled(true);
-        etAddExamTitle.setEnabled(true);
-        btnAddExamSumit.setVisibility(View.VISIBLE);
 
         if (null != item.getTitle()) {
-            item.setSubmit(false);
+            etAddExamGrade.setEnabled(false);
+            etAddExamTitle.setEnabled(false);
+            btnAddExamSumit.setVisibility(View.GONE);
+            item.setSubmit(true);
             etAddExamGrade.setText(String.valueOf(item.getScore()));
             etAddExamTitle.setText(item.getTitle());
         } else {
-
+            etAddExamGrade.setEnabled(true);
+            etAddExamTitle.setEnabled(true);
+            btnAddExamSumit.setVisibility(View.VISIBLE);
             etAddExamGrade.setText("");
             etAddExamTitle.setText("");
         }
@@ -174,7 +176,20 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
         etAddExamD.setEnabled(true);
 
         if (null != item.getTitle()) {
-            item.setSubmit(false);
+            btnAddExamSumit.setVisibility(View.GONE);
+            etAddExamGrade.setEnabled(false);
+            etAddExamTitle.setEnabled(false);
+            cbAddExamA.setEnabled(false);
+            cbAddExamB.setEnabled(false);
+            cbAddExamC.setEnabled(false);
+            cbAddExamD.setEnabled(false);
+            etAddExamA.setEnabled(false);
+            etAddExamB.setEnabled(false);
+            etAddExamC.setEnabled(false);
+            etAddExamD.setEnabled(false);
+
+
+            item.setSubmit(true);
             etAddExamGrade.setText(String.valueOf(item.getScore()));
             String[] solutionString = item.getSolution().split(",");
             if (solutionString[0].equals("true")) {
@@ -224,7 +239,17 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
 
 
         } else {
-
+            btnAddExamSumit.setVisibility(View.VISIBLE);
+            etAddExamGrade.setEnabled(true);
+            etAddExamTitle.setEnabled(true);
+            cbAddExamA.setEnabled(true);
+            cbAddExamB.setEnabled(true);
+            cbAddExamC.setEnabled(true);
+            cbAddExamD.setEnabled(true);
+            etAddExamA.setEnabled(true);
+            etAddExamB.setEnabled(true);
+            etAddExamC.setEnabled(true);
+            etAddExamD.setEnabled(true);
             etAddExamTitle.setText("");
             etAddExamA.setText("");
             etAddExamB.setText("");
@@ -364,7 +389,20 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
         etAddExamD.setEnabled(true);
 
         if (null != item.getTitle()) {
-            item.setSubmit(false);
+            btnAddExamSumit.setVisibility(View.GONE);
+            etAddExamGrade.setEnabled(false);
+            etAddExamTitle.setEnabled(false);
+            rbAddExamA.setEnabled(false);
+            rbAddExamB.setEnabled(false);
+            rbAddExamC.setEnabled(false);
+            rbAddExamD.setEnabled(false);
+            etAddExamA.setEnabled(false);
+            etAddExamB.setEnabled(false);
+            etAddExamC.setEnabled(false);
+            etAddExamD.setEnabled(false);
+
+
+            item.setSubmit(true);
             etAddExamGrade.setText(String.valueOf(item.getScore()));
 
             if (item.getSolution().equals("a")) {
@@ -388,7 +426,17 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
             etAddExamC.setText(item.getContent().get(2));
             etAddExamD.setText(item.getContent().get(3));
         } else {
-
+            btnAddExamSumit.setVisibility(View.VISIBLE);
+            etAddExamGrade.setEnabled(true);
+            etAddExamTitle.setEnabled(true);
+            rbAddExamA.setEnabled(true);
+            rbAddExamB.setEnabled(true);
+            rbAddExamC.setEnabled(true);
+            rbAddExamD.setEnabled(true);
+            etAddExamA.setEnabled(true);
+            etAddExamB.setEnabled(true);
+            etAddExamC.setEnabled(true);
+            etAddExamD.setEnabled(true);
             etAddExamGrade.setText("");
             etAddExamTitle.setText("");
             etAddExamA.setText("");
@@ -491,7 +539,12 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
         rbAddExamTrue.setEnabled(true);
 
         if (null != item.getTitle()) {
-            item.setSubmit(false);
+            btnAddExamSumit.setVisibility(View.GONE);
+            etAddExamGrade.setEnabled(false);
+            etAddExamTitle.setEnabled(false);
+            rbAddExamFalse.setEnabled(false);
+            rbAddExamTrue.setEnabled(false);
+            item.setSubmit(true);
             etAddExamGrade.setText(String.valueOf(item.getScore()));
             etAddExamTitle.setText(item.getTitle());
             if (item.getSolution().equals("true")) {
@@ -500,6 +553,11 @@ public class AddExamAdapter extends BaseAdapter<Subject> {
                 rbAddExamFalse.setChecked(true);
             }
         } else {
+            btnAddExamSumit.setVisibility(View.VISIBLE);
+            etAddExamGrade.setEnabled(true);
+            etAddExamTitle.setEnabled(true);
+            rbAddExamFalse.setEnabled(true);
+            rbAddExamTrue.setEnabled(true);
             etAddExamGrade.setText("");
             etAddExamTitle.setText("");
             rbAddExamTrue.setChecked(false);

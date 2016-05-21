@@ -38,18 +38,7 @@ public class AccountUpdateFragment extends BasePresenterFragment<AccountUpdateVi
                 mColumnCode = "password";
                 mColumnValue = mContext.getSharedPreferences("user", 0).getString("password", "");
                 break;
-            case "学校":
-                mColumnCode = "school";
-                mColumnValue = mContext.getSharedPreferences("user", 0).getString("school", "");
-                break;
-            case "学号":
-                mColumnCode = "number";
-                mColumnValue = String.valueOf(mContext.getSharedPreferences("user", 0).getInt("number", -1));
-                break;
-            case "姓名":
-                mColumnCode = "name";
-                mColumnValue = mContext.getSharedPreferences("user", 0).getString("name", "");
-                break;
+
 
             default:
                 break;
@@ -60,79 +49,34 @@ public class AccountUpdateFragment extends BasePresenterFragment<AccountUpdateVi
 
     @Override
     protected int getLayoutId() {
-        if (mColumnCode.equals("password")) {
-            return R.layout.fragment_account_update_password;
-        } else {
-            return R.layout.fragment_account_update;
-        }
+
+        return R.layout.fragment_account_update_password;
+
     }
 
     @Override
     protected void initView() {
         super.initView();
-        if (mColumnCode.equals("password")) {
-            //修改密码界面
-            final EditText et_dialog_password_confirm = (EditText) view.findViewById(R.id.et_dialog_password_confirm);
-            final EditText et_dialog_password_new = (EditText) view.findViewById(R.id.et_dialog_password_new);
-            final EditText et_dialog_password_pass = (EditText) view.findViewById(R.id.et_dialog_password_pass);
-            Button btn_dialog_password_save = (Button) view.findViewById(R.id.btn_dialog_password_save);
 
-            btn_dialog_password_save.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String confirmPwd = et_dialog_password_confirm.getText().toString();
-                    String newPwd = et_dialog_password_new.getText().toString();
-                    String passPwd = et_dialog_password_pass.getText().toString();
-                    updatePassword(passPwd, newPwd, confirmPwd);
-                }
-            });
-        } else {
-            //修改学校,名字,学号界面
-            TextView tv_dialog_content = (TextView) view.findViewById(R.id.tv_dialog_content);
-            Button btn_dialog_password_save = (Button) view.findViewById(R.id.btn_dialog_password_save);
-            final EditText et_dialog_content_new = (EditText) view.findViewById(R.id.et_dialog_content_new);
+        //修改密码界面
+        final EditText et_dialog_password_confirm = (EditText) view.findViewById(R.id.et_dialog_password_confirm);
+        final EditText et_dialog_password_new = (EditText) view.findViewById(R.id.et_dialog_password_new);
+        final EditText et_dialog_password_pass = (EditText) view.findViewById(R.id.et_dialog_password_pass);
+        Button btn_dialog_password_save = (Button) view.findViewById(R.id.btn_dialog_password_save);
 
-            switch (mColumnCode) {
-                case "school":
-                    tv_dialog_content.setText("学校");
-                    et_dialog_content_new.setHint("请输入新学校");
-                    et_dialog_content_new.setText(mColumnValue);
-                    et_dialog_content_new.setSelection(mColumnValue.length());
-                    break;
-                case "name":
-                    tv_dialog_content.setText("名字");
-                    et_dialog_content_new.setHint("请输入新名字");
-                    et_dialog_content_new.setText(mColumnValue);
-                    et_dialog_content_new.setSelection(mColumnValue.length());
-
-                    break;
-                case "number":
-                    tv_dialog_content.setText("学号");
-                    et_dialog_content_new.setHint("请输入新学号");
-                    et_dialog_content_new.setText(String.valueOf(mColumnValue));
-                    et_dialog_content_new.setSelection(mColumnValue.length());
-                    et_dialog_content_new.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
-                    et_dialog_content_new.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    break;
-                default:
-                    break;
+        btn_dialog_password_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String confirmPwd = et_dialog_password_confirm.getText().toString();
+                String newPwd = et_dialog_password_new.getText().toString();
+                String passPwd = et_dialog_password_pass.getText().toString();
+                updatePassword(passPwd, newPwd, confirmPwd);
             }
+        });
 
-            btn_dialog_password_save.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!et_dialog_content_new.equals("")) {
-                        mColumnValue = et_dialog_content_new.getText().toString();
-                        mPresenter.updateUserInfo(mContext, u_id, mColumnCode, mColumnValue);
-                        showUpdateOnCompleteDialog(mColumnName, 3);
-                    } else {
-                        showUpdateOnCompleteDialog(mColumnName, 0);
-                    }
-                }
-            });
-        }
 
     }
+
 
     /**
      * 检查密码修改是否正确
@@ -218,7 +162,6 @@ public class AccountUpdateFragment extends BasePresenterFragment<AccountUpdateVi
 
     @Override
     public void updateUserInfoOnComplete(String columnName) {
-//        Log.i(TAG, "result  colunmnName=" + columnName);
         if (columnName.equals("-1")) {
             new AlertDialog.Builder(mContext).setTitle("修改失败").setPositiveButton("确认", null).create().show();
 
@@ -226,15 +169,6 @@ public class AccountUpdateFragment extends BasePresenterFragment<AccountUpdateVi
             switch (columnName) {
                 case "password":
                     mContext.getSharedPreferences("user", 0).edit().putString("password", mColumnValue).commit();
-                    break;
-                case "school":
-                    mContext.getSharedPreferences("user", 0).edit().putString("school", mColumnValue).commit();
-                    break;
-                case "number":
-                    mContext.getSharedPreferences("user", 0).edit().putInt("number", Integer.parseInt(mColumnValue)).commit();
-                    break;
-                case "name":
-                    mContext.getSharedPreferences("user", 0).edit().putString("name", mColumnValue).commit();
                     break;
                 default:
                     break;

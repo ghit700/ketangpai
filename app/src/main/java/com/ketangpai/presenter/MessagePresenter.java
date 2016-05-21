@@ -3,6 +3,7 @@ package com.ketangpai.presenter;
 import android.content.Context;
 
 import com.ketangpai.base.BasePresenter;
+import com.ketangpai.bean.NewestMessage;
 import com.ketangpai.callback.ResultsCallback;
 import com.ketangpai.model.MessageModel;
 import com.ketangpai.modelImpl.MessageModelImpl;
@@ -11,6 +12,7 @@ import com.ketangpai.viewInterface.MessageViewInterface;
 import java.util.List;
 
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.DownloadFileListener;
 
 /**
  * Created by nan on 2016/5/3.

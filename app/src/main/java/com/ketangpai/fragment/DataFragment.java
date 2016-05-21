@@ -118,6 +118,7 @@ public class DataFragment extends BasePresenterFragment<DataViewInterface, DataP
         if (null != mDialog && mDialog.isShowing()) {
             mDialog.dismiss();
         }
+        btn_data_preview.setText("打开");
         sendToast("下载完成");
         Intent intent = IntentUtils.openFile(file);
         startActivity(intent);

@@ -117,16 +117,6 @@ public class AccountFragment extends BasePresenterFragment<AccountViewInterface,
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
-            case R.id.ll_account_name:
-                intent = new Intent(mContext, AccountUpdateActivity.class);
-                intent.putExtra("columnName", "姓名");
-                startActivityForResult(intent, UPDATE_REQUEST);
-                break;
-            case R.id.ll_account_school:
-                intent = new Intent(mContext, AccountUpdateActivity.class);
-                intent.putExtra("columnName", "学校");
-                startActivityForResult(intent, UPDATE_REQUEST);
-                break;
             case R.id.ll_account_userIcon:
                 showUpdateHeadDialog("选择图片", "拍照", "从相册中选择");
                 break;

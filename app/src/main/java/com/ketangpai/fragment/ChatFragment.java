@@ -212,10 +212,7 @@ public class ChatFragment extends BasePresenterFragment<ChatViewInterface, ChatP
                     mChatList.smoothScrollToPosition(mChatRecondList.size());
                 }
             }, 200);
-
         }
-
-
     }
 
     @Override

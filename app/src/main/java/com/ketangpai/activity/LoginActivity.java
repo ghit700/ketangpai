@@ -145,9 +145,6 @@ public class LoginActivity extends BasePresenterActivity<LoginViewInterface, Log
 
             @Override
             public void afterTextChanged(Editable s) {
-//                if (account.equals(mName.getText().toString()) && !path.equals("")) {
-//                    ImageLoaderUtils.displayNoDisk(mContext, mUserIconImg, Constant.LOGO_FOLDER);
-//                }
                 mPresenter.searchUserForLogo(mName.getText().toString());
             }
         });

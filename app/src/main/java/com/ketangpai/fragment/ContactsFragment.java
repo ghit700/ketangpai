@@ -125,18 +125,13 @@ public class ContactsFragment extends BasePresenterFragment<ContactsViewInterfac
      * @param users
      */
     public void getUsersGroupByCourse(List<User_Group> users) {
-
-
         int preC_id = users.get(0).getC_id();
         int i = 0;
-
         mGroupUsers.add(users.get(0).getC_name());
         mGroupItemUsers.add(new ArrayList<User>());
         for (User_Group user_group : users) {
             int nextC_id = user_group.getC_id();
-
             if (preC_id == nextC_id) {
-
                 mGroupItemUsers.get(i).add(new User(user_group.getAccount(), user_group.getName(), user_group.getPath()));
             } else {
                 preC_id = nextC_id;
@@ -146,8 +141,6 @@ public class ContactsFragment extends BasePresenterFragment<ContactsViewInterfac
                 mGroupItemUsers.get(i).add(new User(user_group.getAccount(), user_group.getName(), user_group.getPath()));
             }
         }
-
-
     }
 
 }

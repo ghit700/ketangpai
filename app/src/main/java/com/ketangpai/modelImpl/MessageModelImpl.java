@@ -7,6 +7,7 @@ import com.ketangpai.bean.MessageInfo;
 import com.ketangpai.bean.NewestMessage;
 import com.ketangpai.callback.ResultCallback;
 import com.ketangpai.callback.ResultsCallback;
+import com.ketangpai.constant.Constant;
 import com.ketangpai.model.MessageModel;
 import com.ketangpai.utils.DBUtils;
 
@@ -106,7 +107,7 @@ public class MessageModelImpl implements MessageModel {
         String sql = "delete from newestmessage where m_id > ?";
         Object[] bindArgs = new Object[]{0};
         mDBUtils.delete(sql, bindArgs);
-        sql = "insert into newestmessage (time,content,send_name,send_account" +
+        sql = "insert into newestmessage (time,content,send_name,send_account," +
                 "send_path,receive_name,receive_account,receive_paths) values(?,?,?,?,?,?,?,?)";
         bindArgs = new Object[8];
         for (NewestMessage message : newestMessages) {
@@ -130,18 +131,22 @@ public class MessageModelImpl implements MessageModel {
         sql = "select time,content,send_name,send_account " +
                 ",send_path,receive_name,receive_account,receive_paths from newestmessage";
         Cursor cursor = mDBUtils.select(sql, null);
-        if (cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             NewestMessage message = new NewestMessage();
             message.setTime(cursor.getLong(0));
             message.setContent(cursor.getString(1));
             message.setSend_name(cursor.getString(2));
             message.setSend_account(cursor.getString(3));
-            message.setSend_path(cursor.getString(4));
+            String[] splitePaths = cursor.getString(4).split("/");
+            message.setSend_path(Constant.ALBUM_PATH + Constant.DATA_FOLDER + splitePaths[splitePaths.length - 1]);
             message.setReceive_name(cursor.getString(5));
             message.setReceive_account(cursor.getString(6));
-            message.setReceive_path(cursor.getString(7));
+            splitePaths = cursor.getString(7).split("/");
+            message.setReceive_path(Constant.ALBUM_PATH + Constant.DATA_FOLDER + splitePaths[splitePaths.length - 1]);
             newestMessages.add(message);
         }
+        cursor.close();
+
         return newestMessages;
     }
 }

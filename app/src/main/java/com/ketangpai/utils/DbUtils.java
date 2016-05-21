@@ -24,6 +24,7 @@ public class DBUtils {
     }
 
     public void insert(String sql, Object[] bindArgs) {
+        Log.i("=====insert",bindArgs.length+"  "+sql);
         try {
             mWritableDatabase.execSQL(sql, bindArgs);
         } catch (Exception e) {
