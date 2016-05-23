@@ -104,11 +104,11 @@ public class MessageModelImpl implements MessageModel {
 
     @Override
     public void saveNewestMessageList(List<NewestMessage> newestMessages) {
-        String sql = "delete from newestmessage where m_id > ?";
-        Object[] bindArgs = new Object[]{0};
-        mDBUtils.delete(sql, bindArgs);
+        String sql = "delete from newestmessage where time > 0";
+        mDBUtils.delete(sql, null);
         sql = "insert into newestmessage (time,content,send_name,send_account," +
                 "send_path,receive_name,receive_account,receive_paths) values(?,?,?,?,?,?,?,?)";
+        Object[] bindArgs;
         bindArgs = new Object[8];
         for (NewestMessage message : newestMessages) {
             bindArgs[0] = message.getTime();
@@ -148,5 +148,54 @@ public class MessageModelImpl implements MessageModel {
         cursor.close();
 
         return newestMessages;
+    }
+
+    @Override
+    public void saveChatRecordList(List<MessageInfo> messageInfos) {
+        String sql = "delete from messageinfo where time > 0";
+        if (messageInfos.size() > 1) {
+            mDBUtils.delete(sql, null);
+        }
+        sql = "insert into messageinfo (time,content,send_name,send_account," +
+                "send_path,receive_name,receive_account) values(?,?,?,?,?,?,?)";
+        Object[] bindArgs;
+        bindArgs = new Object[8];
+        for (MessageInfo message : messageInfos) {
+            bindArgs[0] = message.getTime();
+            bindArgs[1] = message.getContent();
+            bindArgs[2] = message.getSend_name();
+            bindArgs[3] = message.getSend_account();
+            bindArgs[4] = message.getSend_path();
+            bindArgs[5] = message.getReceive_name();
+            bindArgs[6] = message.getReceive_account();
+            mDBUtils.insert(sql, bindArgs);
+        }
+    }
+
+    @Override
+    public List<MessageInfo> loadChatRecordListFromDB(String account, String send_account) {
+        List<MessageInfo> messageInfos = new ArrayList<>();
+        String sql;
+
+        sql = "select time,content,send_name,send_account " +
+                ",send_path,receive_name,receive_account from messageinfo where receive_account= ? or receive_account=? or " +
+                "send_account=? or send_account=?";
+        String[] selectionArgs = new String[]{account, send_account, account, send_account};
+        Cursor cursor = mDBUtils.select(sql, selectionArgs);
+        while (cursor.moveToNext()) {
+            NewestMessage message = new NewestMessage();
+            message.setTime(cursor.getLong(0));
+            message.setContent(cursor.getString(1));
+            message.setSend_name(cursor.getString(2));
+            message.setSend_account(cursor.getString(3));
+            String[] splitePaths = cursor.getString(4).split("/");
+            message.setSend_path(Constant.ALBUM_PATH + Constant.DATA_FOLDER + splitePaths[splitePaths.length - 1]);
+            message.setReceive_name(cursor.getString(5));
+            message.setReceive_account(cursor.getString(6));
+            messageInfos.add(message);
+        }
+        cursor.close();
+
+        return messageInfos;
     }
 }

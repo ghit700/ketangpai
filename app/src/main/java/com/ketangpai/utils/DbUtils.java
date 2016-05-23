@@ -33,7 +33,12 @@ public class DBUtils {
     }
 
     public void delete(String sql, Object[] bindArgs) {
-        mWritableDatabase.execSQL(sql, bindArgs);
+        if (null!=bindArgs){
+            mWritableDatabase.execSQL(sql, bindArgs);
+        }else{
+            mWritableDatabase.execSQL(sql);
+
+        }
     }
 
     public Cursor select(String sql, String[] selectionArgs) {

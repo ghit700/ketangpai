@@ -81,12 +81,7 @@ public class MessageFragment extends BasePresenterFragment<MessageViewInterface,
     protected void loadData() {
         mPresenter.loadNewestMessageListFromDB();
         if (NetUtils.hasNetworkConnection()) {
-            refeshMessage.post(new Runnable() {
-                @Override
-                public void run() {
-                    refeshMessage.setRefreshing(true);
-                }
-            });
+
             onRefresh();
         } else {
             sendToast("没有网络连接");
@@ -128,7 +123,6 @@ public class MessageFragment extends BasePresenterFragment<MessageViewInterface,
     @Override
     public void onRefresh() {
         if (NetUtils.hasNetworkConnection()) {
-
             mPresenter.getNewestMessageLis(mContext, account);
         } else {
             sendToast("没有网络连接");

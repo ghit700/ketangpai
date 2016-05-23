@@ -21,6 +21,7 @@ import com.ketangpai.event.ReceiveMessageEvent;
 import com.ketangpai.listener.OnItemClickListener;
 import com.ketangpai.nan.ketangpai.R;
 import com.ketangpai.presenter.ChatPresenter;
+import com.ketangpai.utils.NetUtils;
 import com.ketangpai.viewInterface.ChatViewInterface;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,6 +29,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.bmob.push.lib.util.NetworkUtil;
 
 /**
  * Created by nan on 2016/3/19.
@@ -113,7 +116,13 @@ public class ChatFragment extends BasePresenterFragment<ChatViewInterface, ChatP
 
     @Override
     protected void loadData() {
-        mPresenter.getChatRecondList(mContext, account, mSend_User.getAccount());
+        if (NetUtils.hasNetworkConnection()) {
+            mPresenter.loadChatRecordListFromDB(account, mSend_User.getAccount());
+            mPresenter.getChatRecondList(mContext, account, mSend_User.getAccount());
+        } else {
+            mPresenter.loadChatRecordListFromDB(account, mSend_User.getAccount());
+            sendToast("没有网络连接");
+        }
     }
 
     private void initChatList() {
@@ -190,6 +199,20 @@ public class ChatFragment extends BasePresenterFragment<ChatViewInterface, ChatP
 
     @Override
     public void getChatRecondListOnComplete(List<MessageInfo> messageInfos) {
+        mChatRecondList.clear();
+        mChatRecondList.addAll(messageInfos);
+        mChatAdapter.notifyDataSetChanged();
+        mChatList.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mChatList.smoothScrollToPosition(mChatRecondList.size());
+            }
+        }, 200);
+    }
+
+    @Override
+    public void loadChatRecodListFromDB(List<MessageInfo> messageInfos) {
+        mChatRecondList.clear();
         mChatRecondList.addAll(messageInfos);
         mChatAdapter.notifyDataSetChanged();
         mChatList.postDelayed(new Runnable() {

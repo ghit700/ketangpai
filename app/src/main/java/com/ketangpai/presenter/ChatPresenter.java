@@ -17,6 +17,7 @@ import com.ketangpai.modelImpl.NotificationModelImpl;
 import com.ketangpai.utils.PushManager;
 import com.ketangpai.viewInterface.ChatViewInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.exception.BmobException;
@@ -39,6 +40,7 @@ public class ChatPresenter extends BasePresenter<ChatViewInterface> {
                 @Override
                 public void onSuccess(List list) {
                     mChatViewInterface.getChatRecondListOnComplete(list);
+                    mMessageModel.saveChatRecordList(list);
                 }
 
                 @Override
@@ -51,14 +53,16 @@ public class ChatPresenter extends BasePresenter<ChatViewInterface> {
 
     ;
 
-    public void sendMessage(final Context context, MessageInfo messageInfo,String path) {
+    public void sendMessage(final Context context, final MessageInfo messageInfo, String path) {
         if (isViewAttached()) {
             mChatViewInterface = getView();
-            mMessageModel.sendMessage(context, messageInfo,path ,new ResultCallback() {
+            mMessageModel.sendMessage(context, messageInfo, path, new ResultCallback() {
                 @Override
                 public void onSuccess(Object object) {
-
                     PushManager.sendMessage(context, (MessageInfo) object);
+                    List<MessageInfo> messageInfos = new ArrayList<MessageInfo>();
+                    messageInfos.add(messageInfo);
+                    mMessageModel.saveChatRecordList(messageInfos);
                 }
 
                 @Override
@@ -67,6 +71,13 @@ public class ChatPresenter extends BasePresenter<ChatViewInterface> {
                 }
             });
 
+        }
+    }
+
+    public void loadChatRecordListFromDB(String account, String send_account) {
+        if (isViewAttached()) {
+            mChatViewInterface = getView();
+            mChatViewInterface.loadChatRecodListFromDB(mMessageModel.loadChatRecordListFromDB(account, send_account));
         }
     }
 

@@ -177,7 +177,11 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createCourse(dialogCourse.getText().toString());
+                if (NetUtils.hasNetworkConnection()) {
+                    createCourse(dialogCourse.getText().toString());
+                } else {
+                    sendToast("没有网络连接");
+                }
             }
         });
 

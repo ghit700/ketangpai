@@ -22,4 +22,8 @@ public interface MessageModel {
     void saveNewestMessageList(List<NewestMessage> newestMessages);
 
     List<NewestMessage> loadNewestMessageListFromDB();
+
+    void saveChatRecordList(List<MessageInfo> messageInfos);
+
+    List<MessageInfo> loadChatRecordListFromDB(String account, String send_account);
 }

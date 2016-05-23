@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface ChatViewInterface {
     void getChatRecondListOnComplete(List<MessageInfo> messageInfos);
+
+    void loadChatRecodListFromDB(List<MessageInfo> messageInfos);
 }

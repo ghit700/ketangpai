@@ -20,6 +20,7 @@ import com.ketangpai.bean.Test;
 import com.ketangpai.listener.OnItemClickListener;
 import com.ketangpai.nan.ketangpai.R;
 import com.ketangpai.presenter.SearchPresenter;
+import com.ketangpai.utils.NetUtils;
 import com.ketangpai.viewInterface.SearchViewInterface;
 
 import java.util.ArrayList;
@@ -125,6 +126,9 @@ public class SearchTabFragment extends BasePresenterFragment<SearchViewInterface
                 mTabContents.clear();
                 mTabAdapter.notifyDataSetChanged();
             }
+        } else if (!NetUtils.hasNetworkConnection()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+            sendToast("没有网络连接");
         } else {
             if (null != mSwipeRefreshLayout) {
                 mSwipeRefreshLayout.post(new Runnable() {
