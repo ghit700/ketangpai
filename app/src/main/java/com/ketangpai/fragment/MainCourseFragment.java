@@ -148,6 +148,17 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
         startActivity(intent);
     }
 
+    private CourseMainCourseAdapter.CourseItemListener mItemListener=new CourseMainCourseAdapter.CourseItemListener() {
+        @Override
+        public void deleteCourse(int c_id) {
+            mPresenter.deleteCourse(mContext,c_id);
+        }
+
+        @Override
+        public void addStudent(int c_id) {
+        }
+    };
+
     private void showAddDialog() {
         mAddDialog = new AlertDialog.Builder(mContext).create();
         mAddDialog.setCanceledOnTouchOutside(false);

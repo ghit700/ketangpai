@@ -1,5 +1,7 @@
 package com.ketangpai.base;
 
+import android.content.Context;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
@@ -29,4 +31,6 @@ public abstract class BasePresenter<T> {
             mViewRef = null;
         }
     }
+
+
 }

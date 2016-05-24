@@ -23,8 +23,12 @@ import java.util.List;
  */
 public class CourseMainCourseAdapter extends BaseAdapter<Course> {
 
-    public CourseMainCourseAdapter(Context mContext, List<Course> mDataList) {
+
+    private CourseItemListener mItemListener;
+
+    public CourseMainCourseAdapter(Context mContext, List<Course> mDataList, CourseItemListener listener) {
         super(mContext, mDataList);
+        this.mItemListener = listener;
     }
 
     @Override
@@ -67,12 +71,13 @@ public class CourseMainCourseAdapter extends BaseAdapter<Course> {
             public boolean onMenuItemClick(MenuItem item) {
                 Course course = mDataList.get(position);
                 switch (item.getItemId()) {
-                    case R.id.item_menu_delete:
-                        CourseModel courseModel=new CourseModelImpl();
-                        courseModel.deleteCourse(mContext,course.getC_id());
 
-                        mDataList.remove(position);
-                        notifyDataSetChanged();
+                    case R.id.item_menu_add_student:
+                        mItemListener.addStudent(course.getC_id());
+                        break;
+
+                    case R.id.item_menu_delete:
+                        mItemListener.deleteCourse(course.getC_id());
                         break;
 
                     default:
@@ -94,6 +99,12 @@ public class CourseMainCourseAdapter extends BaseAdapter<Course> {
         CourseCode.setText(s.getCode());
         StudentCount.setText("成员" + String.valueOf(((Teacher_Course) s).getNumbers()) + "人");
 
+    }
+
+    public interface CourseItemListener {
+        void deleteCourse(int c_id);
+
+        void addStudent(int c_id);
     }
 
 
