@@ -172,20 +172,26 @@ public class ExamAdapter extends BaseAdapter<Subject> {
         String[] answer = item.getAnswer().split(",");
         if (answer[0].equals("true")) {
             cbExamA.setChecked(true);
+            cbExamA.setTextColor(mContext.getResources().getColor(R.color.actionsheet_red));
         } else {
             cbExamA.setChecked(false);
         }
         if (answer[1].equals("true")) {
+            cbExamB.setTextColor(mContext.getResources().getColor(R.color.actionsheet_red));
+
             cbExamB.setChecked(true);
         } else {
             cbExamB.setChecked(false);
         }
         if (answer[2].equals("true")) {
+            cbExamC.setTextColor(mContext.getResources().getColor(R.color.actionsheet_red));
+
             cbExamC.setChecked(true);
         } else {
             cbExamC.setChecked(false);
         }
         if (answer[3].equals("true")) {
+            cbExamD.setTextColor(mContext.getResources().getColor(R.color.actionsheet_red));
             cbExamD.setChecked(true);
         } else {
             cbExamD.setChecked(false);
@@ -225,15 +231,22 @@ public class ExamAdapter extends BaseAdapter<Subject> {
         rbExamC.setEnabled(false);
         rbExamD.setEnabled(false);
         if (item.getAnswer().equals("a")) {
+            rbExamA.setTextColor(mContext.getResources().getColor(R.color.actionsheet_red));
             rbExamA.setChecked(true);
         }
         if (item.getAnswer().equals("b")) {
+            rbExamB.setTextColor(mContext.getResources().getColor(R.color.actionsheet_red));
+
             rbExamB.setChecked(true);
         }
         if (item.getAnswer().equals("c")) {
+            rbExamC.setTextColor(mContext.getResources().getColor(R.color.actionsheet_red));
+
             rbExamC.setChecked(true);
         }
         if (item.getAnswer().equals("d")) {
+            rbExamD.setTextColor(mContext.getResources().getColor(R.color.actionsheet_red));
+
             rbExamD.setChecked(true);
         }
 
@@ -268,8 +281,12 @@ public class ExamAdapter extends BaseAdapter<Subject> {
         rbExamTrue.setEnabled(false);
         rbExamFalse.setEnabled(false);
         if (item.getAnswer().equals("true")) {
+            rbExamTrue.setTextColor(mContext.getResources().getColor(R.color.actionsheet_red));
+
             rbExamTrue.setChecked(true);
         } else {
+            rbExamFalse.setTextColor(mContext.getResources().getColor(R.color.actionsheet_red));
+
             rbExamFalse.setChecked(true);
         }
 
