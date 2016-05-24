@@ -48,8 +48,9 @@ public class AddExamFragment extends BasePresenterFragment<AddExamViewInterface,
 
     //various
     private List<Subject> mExams;
-    private List<Subject> mChooseSubjects;
+    private List<Subject> mAllSubjects;
     private List<Subject> mSaveSubjects;
+    private List<Subject> mChooseSubjects;
     private String mTitle;
     private String mContent;
     private long mTime;
@@ -70,8 +71,9 @@ public class AddExamFragment extends BasePresenterFragment<AddExamViewInterface,
         mCourse = (Teacher_Course) getActivity().getIntent().getSerializableExtra("course");
         mTime = getActivity().getIntent().getLongExtra("time", -1);
         mSaveSubjects = new ArrayList<>();
+        mAllSubjects = new ArrayList<>();
         mChooseSubjects = new ArrayList<>();
-        mChooseSubjectAdapte = new ChooseSubjectAdapte(mContext, mChooseSubjects);
+        mChooseSubjectAdapte = new ChooseSubjectAdapte(mContext, mAllSubjects);
     }
 
     @Override
@@ -152,7 +154,7 @@ public class AddExamFragment extends BasePresenterFragment<AddExamViewInterface,
         cbChooseExamAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                for (Subject s : mChooseSubjects) {
+                for (Subject s : mAllSubjects) {
                     s.setCheck(isChecked);
                 }
                 mChooseSubjectAdapte.notifyDataSetChanged();
@@ -163,8 +165,9 @@ public class AddExamFragment extends BasePresenterFragment<AddExamViewInterface,
         btnChooseExamAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (Subject subject : mChooseSubjects) {
+                for (Subject subject : mAllSubjects) {
                     if (subject.isCheck()) {
+                        mChooseSubjects.add(subject);
                         mAddExamAdapter.addItem(mExams.size(), subject);
                     }
                 }
@@ -292,8 +295,16 @@ public class AddExamFragment extends BasePresenterFragment<AddExamViewInterface,
 
     @Override
     public void loadChooseSubjectsOnComplete(List<Subject> subjects) {
-        mChooseSubjects.clear();
-        mChooseSubjects.addAll(subjects);
+        for (Subject subject : subjects) {
+            for (Subject chooseSubject : mChooseSubjects) {
+                if (subject.getS_id() == chooseSubject.getS_id()) {
+                    subjects.remove(subject);
+                    break;
+                }
+            }
+        }
+        mAllSubjects.clear();
+        mAllSubjects.addAll(subjects);
         mChooseSubjectAdapte.notifyDataSetChanged();
 
     }
