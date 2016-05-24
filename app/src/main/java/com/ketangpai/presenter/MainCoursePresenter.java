@@ -82,6 +82,6 @@ public class MainCoursePresenter extends BasePresenter<MainCourseViewInterface> 
 
 
     public void deleteCourse(Context mContext, int c_id) {
-        
+
     }
 }
