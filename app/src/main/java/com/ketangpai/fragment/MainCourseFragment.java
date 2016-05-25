@@ -55,7 +55,7 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
 
     //变量
     //course数组
-    private List mCourses;
+    private List<Teacher_Course> mCourses;
     //判断addBtn是否open
     private boolean isBtnOpen = true;
 
@@ -81,7 +81,7 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
         initAddBtnAnim();
 
         mCourses = new ArrayList<Teacher_Course>();
-        mMainCourseAdapter = new CourseMainCourseAdapter(mContext, mCourses);
+        mMainCourseAdapter = new CourseMainCourseAdapter(mContext, mCourses, mItemListener);
 
     }
 
@@ -148,14 +148,15 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
         startActivity(intent);
     }
 
-    private CourseMainCourseAdapter.CourseItemListener mItemListener=new CourseMainCourseAdapter.CourseItemListener() {
+    private CourseMainCourseAdapter.CourseItemListener mItemListener = new CourseMainCourseAdapter.CourseItemListener() {
         @Override
         public void deleteCourse(int c_id) {
-            mPresenter.deleteCourse(mContext,c_id);
+            mPresenter.deleteCourse(mContext, c_id);
         }
 
         @Override
         public void addStudent(int c_id) {
+
         }
     };
 
@@ -256,7 +257,7 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
     }
 
     @Override
-    public void getCourseListOnComplete(List<Course> courses) {
+    public void getCourseListOnComplete(List<Teacher_Course> courses) {
         if (null != courses) {
             Collections.reverse(courses);
             int start = 0;

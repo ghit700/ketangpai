@@ -21,12 +21,12 @@ import java.util.List;
 /**
  * Created by nan on 2016/3/14.
  */
-public class CourseMainCourseAdapter extends BaseAdapter<Course> {
+public class CourseMainCourseAdapter extends BaseAdapter<Teacher_Course> {
 
 
     private CourseItemListener mItemListener;
 
-    public CourseMainCourseAdapter(Context mContext, List<Course> mDataList, CourseItemListener listener) {
+    public CourseMainCourseAdapter(Context mContext, List<Teacher_Course> mDataList, CourseItemListener listener) {
         super(mContext, mDataList);
         this.mItemListener = listener;
     }
@@ -37,7 +37,7 @@ public class CourseMainCourseAdapter extends BaseAdapter<Course> {
     }
 
     @Override
-    protected void bindData(ViewHolder holder, final int position, Course s) {
+    protected void bindData(ViewHolder holder, final int position, Teacher_Course s) {
         //初始化view
         TextView CourseName = (TextView) holder.getViewById(R.id.tv_item_courseName);
         TextView StudentCount = (TextView) holder.getViewById(R.id.tv_item_StudentCount);

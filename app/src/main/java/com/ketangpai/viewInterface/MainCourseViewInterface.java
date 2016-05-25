@@ -15,7 +15,7 @@ public interface MainCourseViewInterface {
      *
      * @param courses
      */
-    void getCourseListOnComplete(List<Course> courses);
+    void getCourseListOnComplete(List<Teacher_Course> courses);
 
     /**
      * 创建课程
