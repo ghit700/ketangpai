@@ -34,4 +34,6 @@ public interface UserModel {
     void saveUserGroup(List<User_Group> user_groups);
 
     List<User_Group> loadUserGroupFromDB();
+
+    void getStudentList(Context mContext, int c_id,String name, ResultsCallback resultsCallback);
 }

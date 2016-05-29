@@ -29,4 +29,6 @@ public interface MainCourseViewInterface {
     void showLoading();
 
     void hideLoading();
+
+    void getStudentListOnComplete(List list);
 }

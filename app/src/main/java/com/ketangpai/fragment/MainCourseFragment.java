@@ -12,14 +12,18 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ketangpai.activity.CourseActivity;
 import com.ketangpai.adapter.CourseMainCourseAdapter;
+import com.ketangpai.adapter.StudentAdapter;
 import com.ketangpai.base.BaseAdapter;
 import com.ketangpai.base.BasePresenterFragment;
 import com.ketangpai.bean.Course;
+import com.ketangpai.bean.Student;
 import com.ketangpai.bean.Teacher_Course;
 import com.ketangpai.listener.OnItemClickListener;
 import com.ketangpai.nan.ketangpai.R;
@@ -63,6 +67,8 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
     private String name;
     private int number;
     private String path;
+    private List<Student> mStudentList;
+    private StudentAdapter mStudentAdapter;
 
 
     @Override
@@ -156,8 +162,11 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
 
         @Override
         public void addStudent(int c_id) {
-
+            showAddStudentDialog(c_id);
+            mPresenter.getStudentList(mContext, c_id,name);
         }
+
+
     };
 
     private void showAddDialog() {
@@ -240,6 +249,66 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
         }
     }
 
+    private void showAddStudentDialog(final int c_id) {
+        final AlertDialog dialog = new AlertDialog.Builder(mContext).create();
+
+        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_add_student, null);
+
+        RecyclerView listStudentDialog = (RecyclerView) view.findViewById(R.id.listStudentDialogt);
+
+        listStudentDialog.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        mStudentList = new ArrayList<>();
+        mStudentAdapter = new StudentAdapter(mContext, mStudentList);
+        listStudentDialog.setAdapter(mStudentAdapter);
+
+        CheckBox cbListStudentDialogAllCheck = (CheckBox) view.findViewById(R.id.cbListStudentDialogAllCheck);
+
+        cbListStudentDialogAllCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                for (Student student : mStudentList) {
+                    student.setCheck(isChecked);
+                }
+                mStudentAdapter.notifyDataSetChanged();
+            }
+        });
+
+        Button btnListStudentDialogAdd = (Button) view.findViewById(R.id.btnListStudentDialogAdd);
+
+        btnListStudentDialogAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int i = 0;
+                for (; i < mStudentList.size(); i++) {
+                    if (mStudentList.get(i).isCheck()) {
+                        break;
+                    }
+                }
+
+                if (i == mStudentList.size() && !mStudentList.get(mStudentList.size() - 1).isCheck()) {
+                    sendToast("请选择要加入的学生");
+                } else {
+                    mPresenter.addStudentToCourse(mContext, mStudentList, c_id);
+                }
+            }
+        });
+
+        Button btnListStudentDialogCancle = (Button) view.findViewById(R.id.btnListStudentDialogCancle);
+
+        btnListStudentDialogCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.setView(view);
+
+        dialog.show();
+
+
+    }
+
     @Override
     public void onDismiss(DialogInterface dialog) {
         changeAddBtnAnim();
@@ -305,6 +374,13 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
     @Override
     public void hideLoading() {
         dismissLoadingDialog();
+    }
+
+    @Override
+    public void getStudentListOnComplete(List list) {
+        mStudentList.clear();
+        mStudentList.addAll(list);
+        mStudentAdapter.notifyDataSetChanged();
     }
 
 

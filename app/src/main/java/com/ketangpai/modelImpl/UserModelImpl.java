@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.ketangpai.bean.MessageInfo;
 import com.ketangpai.bean.NewestMessage;
+import com.ketangpai.bean.Student;
 import com.ketangpai.bean.User_Group;
 import com.ketangpai.callback.ResultCallback;
 import com.ketangpai.bean.User;
@@ -125,7 +126,7 @@ public class UserModelImpl implements UserModel {
                     @Override
                     public void onSuccess(List<User_Group> list) {
                         if (null != list && list.size() > 0) {
-                            for (User_Group u:list) {
+                            for (User_Group u : list) {
                                 u.setPath(bmobFile.getFileUrl(context));
                                 u.update(context);
                             }
@@ -327,6 +328,37 @@ public class UserModelImpl implements UserModel {
         }
         cursor.close();
         return user_groups;
+    }
+
+    @Override
+    public void getStudentList(Context mContext, int c_id,String name, final ResultsCallback resultsCallback) {
+        String sql = "select name from User_Group where c_id != ? and name != (select ) order by name ";
+        BmobQuery<User_Group> query = new BmobQuery<>();
+        query.doSQLQuery(mContext, sql, new SQLQueryListener<User_Group>() {
+            @Override
+            public void done(BmobQueryResult<User_Group> bmobQueryResult, BmobException e) {
+                List<User_Group> userGroups = bmobQueryResult.getResults();
+                List<Student> students = new ArrayList<Student>();
+                if (null != userGroups && userGroups.size() > 0) {
+                    String PreName = userGroups.get(0).getName();
+                    Student student = new Student();
+                    student.setName(PreName);
+                    students.add(student);
+                    String CurrentName;
+                    for (User_Group user : userGroups) {
+                        CurrentName = user.getName();
+                        if (!CurrentName.equals(PreName)) {
+                            Student student1 = new Student();
+                            student1.setName(CurrentName);
+                            students.add(student1);
+                        }
+                        PreName = user.getName();
+                    }
+                }
+                resultsCallback.onSuccess(students);
+
+            }
+        }, c_id,name);
     }
 
 
