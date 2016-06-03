@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.ketangpai.nan.ketangpai.R;
 
 import com.ketangpai.base.DrawerBaseActivity;
@@ -280,7 +281,7 @@ public class MainActivity extends DrawerBaseActivity implements View.OnClickList
         bmobQuery.findObjects(this, new FindListener<Installation>() {
             @Override
             public void onSuccess(List<Installation> list) {
-                if (null != list) {
+                if (null != list && list.size() > 0) {
                     Installation installation = list.get(0);
                     installation.setAccount(account);
                     installation.update(mContext);

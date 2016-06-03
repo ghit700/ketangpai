@@ -7,7 +7,7 @@ public class Student_Course extends Course {
 
     private String teacher;
     private String student_name;
-    private Integer student_number;
+    private Long student_number;
     private Long add_time;
 
     public String getStudent_name() {
@@ -26,11 +26,11 @@ public class Student_Course extends Course {
         this.student_name = student_name;
     }
 
-    public Integer getStudent_number() {
+    public Long getStudent_number() {
         return student_number;
     }
 
-    public void setStudent_number(Integer student_number) {
+    public void setStudent_number(Long student_number) {
         this.student_number = student_number;
     }
 

@@ -35,5 +35,5 @@ public interface UserModel {
 
     List<User_Group> loadUserGroupFromDB();
 
-    void getStudentList(Context mContext, int c_id,String name, ResultsCallback resultsCallback);
+//    void getStudentList(Context mContext, int c_id,String account, ResultsCallback resultsCallback);
 }

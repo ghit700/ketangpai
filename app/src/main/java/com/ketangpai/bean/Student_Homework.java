@@ -12,7 +12,7 @@ public class Student_Homework extends BmobObject {
     private Integer h_id;
     private Integer grade;
     private Long commit_time;
-    private Integer student_number;
+    private Long student_number;
     private String student_name;
     private String account;
     /**
@@ -59,11 +59,11 @@ public class Student_Homework extends BmobObject {
         this.commit_time = commit_time;
     }
 
-    public Integer getStudent_number() {
+    public Long getStudent_number() {
         return student_number;
     }
 
-    public void setStudent_number(Integer student_number) {
+    public void setStudent_number(Long student_number) {
         this.student_number = student_number;
     }
 

@@ -10,7 +10,7 @@ public class User extends BmobObject {
     protected String school;
     protected String name;
     protected Integer type;
-    private Integer number;
+    private Long number;
     private String path = "";
 
     public User(String account, String name, String path) {
@@ -31,11 +31,11 @@ public class User extends BmobObject {
         this.path = path;
     }
 
-    public Integer getNumber() {
+    public Long getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(Long number) {
         this.number = number;
     }
 

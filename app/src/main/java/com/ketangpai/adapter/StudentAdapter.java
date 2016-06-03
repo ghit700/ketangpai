@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.ketangpai.base.BaseAdapter;
 import com.ketangpai.bean.Student;
+import com.ketangpai.bean.User;
 import com.ketangpai.nan.ketangpai.R;
 
 import java.util.List;

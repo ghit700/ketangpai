@@ -1,12 +1,7 @@
 package com.ketangpai.base;
 
-import android.content.Context;
-
-import com.ketangpai.bean.Student;
-
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 /**
  * Created by nan on 2016/4/16.

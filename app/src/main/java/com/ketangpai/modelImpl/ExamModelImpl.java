@@ -229,23 +229,22 @@ public class ExamModelImpl implements ExamModel {
     }
 
     @Override
-    public void loadChooseSubjects(Context context, int type, final ResultsCallback resultsCallback) {
+    public void loadChooseSubjects(Context context, int type, String text, final ResultsCallback resultsCallback) {
+        String sql = "select * from Subject where type=" + type + " and title like '%" + text + "%'";
         BmobQuery<Subject> query = new BmobQuery<>();
-        query.addWhereEqualTo("type", type);
-        query.findObjects(context, new FindListener<Subject>() {
+
+        query.doSQLQuery(context, sql, new SQLQueryListener<Subject>() {
             @Override
-            public void onSuccess(List<Subject> list) {
-                if (null != list && list.size() > 0) {
-                    resultsCallback.onSuccess(list);
-                }else{
+            public void done(BmobQueryResult<Subject> bmobQueryResult, BmobException e) {
+                List<Subject> subjects = bmobQueryResult.getResults();
+                if (null != subjects && subjects.size() > 0) {
+                    resultsCallback.onSuccess(subjects);
+                } else {
                     resultsCallback.onSuccess(new ArrayList());
                 }
             }
-
-            @Override
-            public void onError(int i, String s) {
-
-            }
         });
+
+
     }
 }

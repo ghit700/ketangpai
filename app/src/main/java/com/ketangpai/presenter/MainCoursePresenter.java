@@ -7,14 +7,11 @@ import com.ketangpai.bean.Student;
 import com.ketangpai.callback.ResultCallback;
 import com.ketangpai.callback.ResultsCallback;
 import com.ketangpai.base.BasePresenter;
-import com.ketangpai.bean.Student_Course;
 import com.ketangpai.bean.Teacher_Course;
 import com.ketangpai.fragment.MainCourseFragment;
 import com.ketangpai.model.CourseModel;
-import com.ketangpai.model.HomeworkModel;
 import com.ketangpai.model.UserModel;
 import com.ketangpai.modelImpl.CourseModelImpl;
-import com.ketangpai.modelImpl.HomeworkModelImpl;
 import com.ketangpai.modelImpl.UserModelImpl;
 import com.ketangpai.viewInterface.MainCourseViewInterface;
 
@@ -89,31 +86,32 @@ public class MainCoursePresenter extends BasePresenter<MainCourseViewInterface> 
     public void deleteCourse(Context mContext, int c_id) {
         if (isViewAttached()) {
             mainCourseViewInterface = getView();
+            courseModel.deleteCourse(mContext, c_id);
 
         }
     }
 
-    public void addStudentToCourse(Context mContext, List<Student> mStudentList, int c_id) {
-        if (isViewAttached()) {
-            mainCourseViewInterface = getView();
+//    public void addStudentToCourse(Context mContext, List<Student> mStudentList, int c_id) {
+//        if (isViewAttached()) {
+//            mainCourseViewInterface = getView();
+//
+//        }
+//    }
 
-        }
-    }
-
-    public void getStudentList(Context mContext, int c_id,String name) {
-        if (isViewAttached()) {
-            mainCourseViewInterface = getView();
-            userModel.getStudentList(mContext,c_id,name ,new ResultsCallback() {
-                @Override
-                public void onSuccess(List list) {
-                    mainCourseViewInterface.getStudentListOnComplete(list);
-                }
-
-                @Override
-                public void onFailure(BmobException e) {
-
-                }
-            });
-        }
-    }
+//    public void getStudentList(Context mContext, int c_id,String account) {
+//        if (isViewAttached()) {
+//            mainCourseViewInterface = getView();
+//            userModel.getStudentList(mContext,c_id,account ,new ResultsCallback() {
+//                @Override
+//                public void onSuccess(List list) {
+//                    mainCourseViewInterface.getStudentListOnComplete(list);
+//                }
+//
+//                @Override
+//                public void onFailure(BmobException e) {
+//
+//                }
+//            });
+//        }
+//    }
 }

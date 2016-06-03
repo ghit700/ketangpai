@@ -15,4 +15,6 @@ public interface CourseModel {
     void createCourse(Context context, Teacher_Course course, String path, ResultCallback resultCallback);
 
     void deleteCourse(Context context, Integer c_id);
+
+//    void addCourse(final Context context,  String code,  String account,  String name,  long number,  String path);
 }

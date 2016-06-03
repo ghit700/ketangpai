@@ -25,6 +25,7 @@ import com.ketangpai.base.BasePresenterFragment;
 import com.ketangpai.bean.Course;
 import com.ketangpai.bean.Student;
 import com.ketangpai.bean.Teacher_Course;
+import com.ketangpai.bean.User;
 import com.ketangpai.listener.OnItemClickListener;
 import com.ketangpai.nan.ketangpai.R;
 import com.ketangpai.presenter.MainCoursePresenter;
@@ -65,7 +66,7 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
 
     private String account;
     private String name;
-    private int number;
+    private long number;
     private String path;
     private List<Student> mStudentList;
     private StudentAdapter mStudentAdapter;
@@ -82,7 +83,7 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
         super.initVarious();
         account = mContext.getSharedPreferences("user", 0).getString("account", "");
         name = mContext.getSharedPreferences("user", 0).getString("name", "");
-        number = mContext.getSharedPreferences("user", 0).getInt("number", -1);
+        number = mContext.getSharedPreferences("user", 0).getLong("number", -1);
         path = mContext.getSharedPreferences("user", 0).getString("path", "");
         initAddBtnAnim();
 
@@ -160,11 +161,11 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
             mPresenter.deleteCourse(mContext, c_id);
         }
 
-        @Override
-        public void addStudent(int c_id) {
-            showAddStudentDialog(c_id);
-            mPresenter.getStudentList(mContext, c_id,name);
-        }
+//        @Override
+//        public void addStudent(int c_id) {
+//            showAddStudentDialog(c_id);
+//            mPresenter.getStudentList(mContext, c_id,account);
+//        }
 
 
     };
@@ -249,65 +250,65 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
         }
     }
 
-    private void showAddStudentDialog(final int c_id) {
-        final AlertDialog dialog = new AlertDialog.Builder(mContext).create();
-
-        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_add_student, null);
-
-        RecyclerView listStudentDialog = (RecyclerView) view.findViewById(R.id.listStudentDialogt);
-
-        listStudentDialog.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-        mStudentList = new ArrayList<>();
-        mStudentAdapter = new StudentAdapter(mContext, mStudentList);
-        listStudentDialog.setAdapter(mStudentAdapter);
-
-        CheckBox cbListStudentDialogAllCheck = (CheckBox) view.findViewById(R.id.cbListStudentDialogAllCheck);
-
-        cbListStudentDialogAllCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                for (Student student : mStudentList) {
-                    student.setCheck(isChecked);
-                }
-                mStudentAdapter.notifyDataSetChanged();
-            }
-        });
-
-        Button btnListStudentDialogAdd = (Button) view.findViewById(R.id.btnListStudentDialogAdd);
-
-        btnListStudentDialogAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int i = 0;
-                for (; i < mStudentList.size(); i++) {
-                    if (mStudentList.get(i).isCheck()) {
-                        break;
-                    }
-                }
-
-                if (i == mStudentList.size() && !mStudentList.get(mStudentList.size() - 1).isCheck()) {
-                    sendToast("请选择要加入的学生");
-                } else {
-                    mPresenter.addStudentToCourse(mContext, mStudentList, c_id);
-                }
-            }
-        });
-
-        Button btnListStudentDialogCancle = (Button) view.findViewById(R.id.btnListStudentDialogCancle);
-
-        btnListStudentDialogCancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.setView(view);
-
-        dialog.show();
-
-
-    }
+//    private void showAddStudentDialog(final int c_id) {
+//        final AlertDialog dialog = new AlertDialog.Builder(mContext).create();
+//
+//        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_add_student, null);
+//
+//        RecyclerView listStudentDialog = (RecyclerView) view.findViewById(R.id.listStudentDialogt);
+//
+//        listStudentDialog.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+//        mStudentList = new ArrayList<>();
+//        mStudentAdapter = new StudentAdapter(mContext, mStudentList);
+//        listStudentDialog.setAdapter(mStudentAdapter);
+//
+//        CheckBox cbListStudentDialogAllCheck = (CheckBox) view.findViewById(R.id.cbListStudentDialogAllCheck);
+//
+//        cbListStudentDialogAllCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                for (Student student : mStudentList) {
+//                    student.setCheck(isChecked);
+//                }
+//                mStudentAdapter.notifyDataSetChanged();
+//            }
+//        });
+//
+//        Button btnListStudentDialogAdd = (Button) view.findViewById(R.id.btnListStudentDialogAdd);
+//
+//        btnListStudentDialogAdd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int i = 0;
+//                for (; i < mStudentList.size(); i++) {
+//                    if (mStudentList.get(i).isCheck()) {
+//                        break;
+//                    }
+//                }
+//
+//                if (i == mStudentList.size() && !mStudentList.get(mStudentList.size() - 1).isCheck()) {
+//                    sendToast("请选择要加入的学生");
+//                } else {
+//                    mPresenter.addStudentToCourse(mContext, mStudentList, c_id);
+//                }
+//            }
+//        });
+//
+//        Button btnListStudentDialogCancle = (Button) view.findViewById(R.id.btnListStudentDialogCancle);
+//
+//        btnListStudentDialogCancle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        dialog.setView(view);
+//
+//        dialog.show();
+//
+//
+//    }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
@@ -376,12 +377,12 @@ public class MainCourseFragment extends BasePresenterFragment<MainCourseViewInte
         dismissLoadingDialog();
     }
 
-    @Override
-    public void getStudentListOnComplete(List list) {
-        mStudentList.clear();
-        mStudentList.addAll(list);
-        mStudentAdapter.notifyDataSetChanged();
-    }
+//    @Override
+//    public void getStudentListOnComplete(List list) {
+//        mStudentList.clear();
+//        mStudentList.addAll(list);
+//        mStudentAdapter.notifyDataSetChanged();
+//    }
 
 
     @Override

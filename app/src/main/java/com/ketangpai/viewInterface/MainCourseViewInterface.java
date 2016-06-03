@@ -30,5 +30,5 @@ public interface MainCourseViewInterface {
 
     void hideLoading();
 
-    void getStudentListOnComplete(List list);
+//    void getStudentListOnComplete(List list);
 }

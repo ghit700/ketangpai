@@ -31,6 +31,10 @@ public class Subject extends BmobObject {
     private boolean submit=false;
     private boolean check=false;
 
+    public Subject() {
+        content = new ArrayList<>();
+    }
+
     public boolean isCheck() {
         return check;
     }
@@ -43,13 +47,9 @@ public class Subject extends BmobObject {
         return submit;
     }
 
+
     public void setSubmit(boolean submit) {
         this.submit = submit;
-    }
-
-
-    public Subject() {
-        content = new ArrayList<>();
     }
 
     public Integer getScore() {

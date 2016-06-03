@@ -72,9 +72,9 @@ public class CourseMainCourseAdapter extends BaseAdapter<Teacher_Course> {
                 Course course = mDataList.get(position);
                 switch (item.getItemId()) {
 
-                    case R.id.item_menu_add_student:
-                        mItemListener.addStudent(course.getC_id());
-                        break;
+//                    case R.id.item_menu_add_student:
+//                        mItemListener.addStudent(course.getC_id());
+//                        break;
 
                     case R.id.item_menu_delete:
                         mItemListener.deleteCourse(course.getC_id());
@@ -104,7 +104,7 @@ public class CourseMainCourseAdapter extends BaseAdapter<Teacher_Course> {
     public interface CourseItemListener {
         void deleteCourse(int c_id);
 
-        void addStudent(int c_id);
+//        void addStudent(int c_id);
     }
 
 

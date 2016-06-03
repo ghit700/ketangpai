@@ -3,12 +3,15 @@ package com.ketangpai.fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -147,6 +150,24 @@ public class AddExamFragment extends BasePresenterFragment<AddExamViewInterface,
         CheckBox cbChooseExamAll = (CheckBox) view.findViewById(R.id.cb_choose_exam_allCheck);
         Button btnChooseExamCreate = (Button) view.findViewById(R.id.btn_choose_exam_create);
         Button btnChooseExamAdd = (Button) view.findViewById(R.id.btn_choose_exam_add);
+        final EditText etChooseExamSearch = (EditText) view.findViewById(R.id.et_choose_exam_search);
+
+        etChooseExamSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mPresenter.loadChooseSubjects(mContext, type, etChooseExamSearch.getText().toString());
+            }
+        });
 
         listChooseExamSubjects.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         listChooseExamSubjects.setAdapter(mChooseSubjectAdapte);
@@ -199,7 +220,7 @@ public class AddExamFragment extends BasePresenterFragment<AddExamViewInterface,
 
         dialog.setView(view);
         dialog.show();
-        mPresenter.loadChooseSubjects(mContext, type);
+        mPresenter.loadChooseSubjects(mContext, type, "");
     }
 
     private void addShortAnswerSubject() {

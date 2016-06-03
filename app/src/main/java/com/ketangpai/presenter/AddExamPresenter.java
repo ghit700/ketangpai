@@ -78,10 +78,10 @@ public class AddExamPresenter extends BasePresenter<AddExamViewInterface> {
         }
     }
 
-    public void loadChooseSubjects(Context context,int type){
+    public void loadChooseSubjects(Context context,int type,String text){
         if (isViewAttached()){
             mAddExamViewInterface=getView();
-            examModel.loadChooseSubjects(context, type, new ResultsCallback() {
+            examModel.loadChooseSubjects(context, type, text,new ResultsCallback() {
                 @Override
                 public void onSuccess(List list) {
                     mAddExamViewInterface.loadChooseSubjectsOnComplete(list);

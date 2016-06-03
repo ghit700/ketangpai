@@ -31,6 +31,6 @@ public interface ExamModel {
 
     void deleteExam(Context context, int t_id);
 
-    void loadChooseSubjects(Context context,int type,ResultsCallback resultsCallback);
+    void loadChooseSubjects(Context context,int type,String text,ResultsCallback resultsCallback);
 
 }

@@ -87,6 +87,7 @@ public class CourseModelImpl implements CourseModel {
         });
     }
 
+
     @Override
     public void deleteCourse(final Context context, Integer c_id) {
         BmobQuery query = new BmobQuery<Teacher_Course>();
@@ -237,6 +238,54 @@ public class CourseModelImpl implements CourseModel {
 
 
     }
+
+//    @Override
+//    public void addCourse(final Context context, final String code, final String account, final String name, final long number, final String path) {
+//        String sql = "select * from Teacher_Course where code=?";
+//        BmobQuery<Teacher_Course> query = new BmobQuery<Teacher_Course>();
+//        query.doSQLQuery(context, sql, new SQLQueryListener<Teacher_Course>() {
+//
+//            @Override
+//            public void done(BmobQueryResult<Teacher_Course> bmobQueryResult, BmobException e) {
+//                List<Teacher_Course> list = bmobQueryResult.getResults();
+//                if (null != list) {
+//                    if (list.size() > 0) {
+//                        Teacher_Course teacher_course = list.get(0);
+//
+//                        int numbers = teacher_course.getNumbers();
+//                        teacher_course.setNumbers(++numbers);
+//                        teacher_course.update(context);
+//
+//                        final Student_Course course = new Student_Course();
+//                        course.setC_id(teacher_course.getC_id());
+//                        course.setName(teacher_course.getName());
+//                        course.setAccount(account);
+//                        course.setTeacher(teacher_course.getT_name());
+//                        course.setCode(code);
+//                        course.setStudent_name(name);
+//                        course.setStudent_number(number);
+//                        course.setAdd_time(System.currentTimeMillis());
+//                        course.save(context, new SaveListener() {
+//                            @Override
+//                            public void onSuccess() {
+//                                User_Group user_group = new User_Group();
+//                                user_group.setC_name(course.getName());
+//                                user_group.setC_id(course.getC_id());
+//                                user_group.setName(course.getStudent_name());
+//                                user_group.setAccount(account);
+//                                user_group.setPath(path);
+//                                user_group.save(context);
+//                            }
+//
+//                            @Override
+//                            public void onFailure(int i, String s) {
+//                            }
+//                        });
+//                    }
+//                }
+//            }
+//        }, code);
+//    }
 
 
 }

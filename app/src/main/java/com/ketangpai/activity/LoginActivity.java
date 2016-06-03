@@ -208,7 +208,7 @@ public class LoginActivity extends BasePresenterActivity<LoginViewInterface, Log
                     mUser.setAccount(et_register_account.getText().toString());
                     mUser.setPassword(et_register_password.getText().toString());
                     mUser.setName(et_register_name.getText().toString());
-                    mUser.setNumber(0);
+                    mUser.setNumber((long)0);
                     mUser.setSchool(et_register_school.getText().toString());
                     mUser.setType(0);
 
@@ -313,7 +313,7 @@ public class LoginActivity extends BasePresenterActivity<LoginViewInterface, Log
         editor.putString("account", mUser.getAccount());
         editor.putString("password", mUser.getPassword());
         editor.putString("school", mUser.getSchool());
-        editor.putInt("number", mUser.getNumber());
+        editor.putLong("number", mUser.getNumber());
         editor.putString("name", mUser.getName());
         editor.putString("u_id", mUser.getObjectId());
         editor.putString("path", mUser.getPath());
