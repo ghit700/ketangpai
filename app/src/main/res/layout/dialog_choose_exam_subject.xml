@@ -6,6 +6,8 @@
     android:padding="5dp">
 
     <EditText
+        android:drawablePadding="5dp"
+        android:drawableLeft="@android:drawable/ic_menu_search"
         android:id="@+id/et_choose_exam_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

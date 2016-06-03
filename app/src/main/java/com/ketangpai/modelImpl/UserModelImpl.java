@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
@@ -212,6 +213,9 @@ public class UserModelImpl implements UserModel {
 
                     }
                 });
+                String sql="update User set path=? where account=?";
+                Object[] bindArgs=new Object[]{bmobFile.getFileUrl(context),user.getAccount()};
+                mDBUtils.update(sql,bindArgs);
 
 
             }
@@ -221,6 +225,11 @@ public class UserModelImpl implements UserModel {
                 Log.i(AccountFragment.TAG, s);
             }
         });
+
+
+
+
+
     }
 
     @Override
@@ -258,11 +267,15 @@ public class UserModelImpl implements UserModel {
         });
 
 
+
     }
 
     @Override
     public void saveUser(User user) {
-        String sql = "select * from user where account=?";
+        String sql="delete from User where account=?";
+        Object[] bindArgs1=new Object[]{user.getAccount()};
+        mDBUtils.delete(sql,bindArgs1);
+         sql = "select * from user where account=?";
         String[] selectArgs = new String[]{user.getAccount()};
         Cursor cursor = mDBUtils.select(sql, selectArgs);
         if (!cursor.moveToNext()) {

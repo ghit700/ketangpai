@@ -89,7 +89,6 @@ public class CourseTabFragment extends BasePresenterFragment<CourseTabViewInterf
     @Override
     public void onStop() {
         super.onStop();
-
     }
 
     public void setPosition(int position) {
