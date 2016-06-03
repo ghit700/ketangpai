@@ -297,7 +297,7 @@ public class LoginActivity extends BasePresenterActivity<LoginViewInterface, Log
     @Override
     public void searchUserOnComplete(User user) {
         if (null != user && !user.getPath().equals("")) {
-            ImageLoaderUtils.display(mContext, mUserIconImg, Constant.PHOTO_FOLDER
+            ImageLoaderUtils.displayNoDisk(mContext, mUserIconImg, Constant.PHOTO_FOLDER
                     + user.getAccount() + "logo.jpg");
         } else {
             ImageLoaderUtils.display(mContext, mUserIconImg, "");
